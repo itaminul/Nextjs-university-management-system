@@ -1,4 +1,4 @@
-## This is the Nextjs project of University Management system using Ant design, Redux Toolkit, Prisma, and PostgreSQL.
+## This is the Nextjs project of University Management system using Ant design, Redux Toolkit.
 
 ## Steps to run this App
 
