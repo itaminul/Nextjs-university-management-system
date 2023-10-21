@@ -2,6 +2,7 @@
 import { Button, Card, Form, Input } from 'antd';
 import {  useRouter } from 'next/navigation';
 import { useState } from 'react';
+import AdminLayout from '../adminlayout/AdminLayout';
 type FieldType = {
   username?: string;
   password?: string;
@@ -21,6 +22,7 @@ function Page() {
   };
   return (
     <>
+      <AdminLayout>
     <Card title="Login" bordered={false} style={{ maxWidth: 500, marginTop: 250, marginLeft: 595, background: '#f0f2f5' }}>
       <Form
       name="login"
@@ -49,6 +51,7 @@ function Page() {
     </Form.Item>
   </Form>
   </Card>
+  </AdminLayout>
     </>
   );
 };
