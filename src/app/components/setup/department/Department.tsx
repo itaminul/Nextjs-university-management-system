@@ -1,7 +1,6 @@
 'use client'
 
 import AdminLayout from "@/app/layouts/adminlayout/AdminLayout";
-
 function Department() {
   return(
     <>
