@@ -1,9 +1,10 @@
 'use client'
-import { Layout, Menu } from 'antd';
+import { Breadcrumb, Layout, Menu } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import SideMenu from '../sideMenu/SideMenu';
+import BreadcrumbList from '../breadcrumb';
 
 const { Sider, Content } = Layout;
 
@@ -18,6 +19,7 @@ const AdminLayout = ({ children, ...props }: LayoutProps) => {
         <SideMenu />       
       </Sider>
       <Layout>
+           <BreadcrumbList />
         <Content>{children}</Content>
       </Layout>
     </Layout>
