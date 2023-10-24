@@ -12,6 +12,9 @@
     "stylelint": "stylelint \"src/**/*.less\""
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.17.2",
+    "@artsy/fresnel": "^6.2.1",
+    "@zeit/next-css": "^1.0.1",
     "antd": "^5.10.0",
     "next": "13.5.4",
     "react": "^18",

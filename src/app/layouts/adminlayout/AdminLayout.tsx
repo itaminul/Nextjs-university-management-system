@@ -4,6 +4,7 @@ import { UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import SideMenu from '../sideMenu/SideMenu';
+import BreadcrumbList from '../breadcrumb';
 
 const { Sider, Content } = Layout;
 
