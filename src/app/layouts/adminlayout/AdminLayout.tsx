@@ -4,7 +4,6 @@ import { UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import SideMenu from '../sideMenu/SideMenu';
-import BreadcrumbList from '../breadcrumb';
 
 const { Sider, Content } = Layout;
 
@@ -19,7 +18,11 @@ const AdminLayout = ({ children, ...props }: LayoutProps) => {
         <SideMenu />       
       </Sider>
       <Layout>
-           <BreadcrumbList />
+      <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>List</Breadcrumb.Item>
+            <Breadcrumb.Item>App</Breadcrumb.Item>
+          </Breadcrumb>
         <Content>{children}</Content>
       </Layout>
     </Layout>
