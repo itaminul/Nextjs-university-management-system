@@ -58,6 +58,9 @@ const data: DataType[] = [
   },
 ];
 
-const DepartmentTable = () => <Table columns={columns} dataSource={data} scroll={{ x: 500, y: 500 }} />;
+
+const DepartmentTable = () => (
+  <Table columns={columns} dataSource={data} scroll={{ x: 500, y: 500 }} />
+);
 
 export default DepartmentTable;
