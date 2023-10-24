@@ -26,7 +26,7 @@ function SideMenu () {
            Department
         </Menu.Item>
         </Link>
-        <Link href="/components/setup/department">
+        <Link href="/components/setup/designation">
         <Menu.Item key="designation">
            Designation
         </Menu.Item>

@@ -23,8 +23,6 @@ export default function Home() {
       }}
     >
 
-
-        
         <Login />
         {/* <Link href="/layouts/dashboard">Dahsbord</Link> */}
         {/* <Header /> */}

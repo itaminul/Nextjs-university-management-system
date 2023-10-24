@@ -1,13 +1,14 @@
 'use client'
 
 import AdminLayout from "@/app/layouts/adminlayout/AdminLayout";
+import DepartmentTable from "./DepartmentTable";
 
 function Department() {
   return(
     <>
     <AdminLayout>
-      Department
-      </AdminLayout>
+      <DepartmentTable />
+    </AdminLayout>
     </>
   )
 }

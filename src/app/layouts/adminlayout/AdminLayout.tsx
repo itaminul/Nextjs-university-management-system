@@ -14,12 +14,16 @@ const { Sider, Content } = Layout;
 
 const AdminLayout = ({ children, ...props }: LayoutProps) => {
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ minHeight: '100vh' }}>       
       <Sider width={180} theme="light">
         <SideMenu />       
       </Sider>
       <Layout>
-           <BreadcrumbList />
+      <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>List</Breadcrumb.Item>
+            <Breadcrumb.Item>App</Breadcrumb.Item>
+      </Breadcrumb>
         <Content>{children}</Content>
       </Layout>
     </Layout>
