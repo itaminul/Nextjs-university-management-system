@@ -7,9 +7,6 @@ export default function Home() {
   return (
     <>
       <main>
-
-
-        
         <Login />
         {/* <Link href="/layouts/dashboard">Dahsbord</Link> */}
         {/* <Header /> */}
