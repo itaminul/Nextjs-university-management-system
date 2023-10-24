@@ -13,7 +13,7 @@ const { Sider, Content } = Layout;
 
 const AdminLayout = ({ children, ...props }: LayoutProps) => {
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ minHeight: '100vh' }}>       
       <Sider width={180} theme="light">
         <SideMenu />       
       </Sider>

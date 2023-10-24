@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import React from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
@@ -57,6 +57,7 @@ const data: DataType[] = [
     address: 'London Park',
   },
 ];
+
 
 const DepartmentTable = () => (
   <Table columns={columns} dataSource={data} scroll={{ x: 500, y: 500 }} />

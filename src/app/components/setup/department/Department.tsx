@@ -8,7 +8,7 @@ function Department() {
     <>
     <AdminLayout>
       <DepartmentTable />
-      </AdminLayout>
+    </AdminLayout>
     </>
   )
 }
