@@ -1,24 +1,21 @@
 'use client'
-import { Breadcrumb, Layout, Menu } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import Link from 'next/link';
-import { ReactNode } from 'react';
+import { Breadcrumb, Layout } from 'antd';
+import type { ReactNode } from 'react';
 import SideMenu from '../sideMenu/SideMenu';
 import BreadcrumbItem from 'antd/es/breadcrumb/BreadcrumbItem';
 import BreadcrumbList from '../BreadcrumbShow';
-
 const { Header, Sider, Content } = Layout;
-
  type LayoutProps = {
   children: ReactNode,
 }
 
-const AdminLayout = ({ children, ...props }: LayoutProps) => { 
+const AdminLayout = ({ children }: LayoutProps) => {
   const items = [
     {
       tittle: 'abc'
     }
   ] 
+
   return (
     <Layout style={{ minHeight: '100vh' }}>       
       <Sider width={180} theme="light">
