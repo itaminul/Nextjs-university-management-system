@@ -1,16 +1,13 @@
-import { ConfigProvider, Button, Space, Input, Divider } from 'antd';
-
-import Link from "next/link";
-import AdminDashboard from "./layouts/dashboard/dashboard";
-import Header from "./layouts/header/header";
+import StyledComponentsRegistry from '@/lib/AntdRegistry';
+import { ConfigProvider } from 'antd';
 import Login from "./layouts/login/page";
-import SideMenu from "./layouts/sideMenu/SideMenu";
 export default function Home() {
   return (
     <>
     
       <main>
-      <ConfigProvider
+    <StyledComponentsRegistry>
+    <ConfigProvider
       theme={{
         components: {
           Button: {
@@ -28,7 +25,9 @@ export default function Home() {
         {/* <Header /> */}
         {/* <SideMenu /> */}
         {/* <AdminDashboard /> */}
+        {/* https://medium.com/@chowjiaying211/creating-a-responsive-sidebar-in-ant-design-e26c7423789f */}
         </ConfigProvider>
+    </StyledComponentsRegistry>
       </main>
  
     </>
