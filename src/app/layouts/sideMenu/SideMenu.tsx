@@ -2,7 +2,8 @@ import { Menu } from "antd";
 import SubMenu from "antd/es/menu/SubMenu";
 import Link from "next/link";
 import { SetStateAction, useState } from "react";
-
+import { ConfigProvider, Layout } from 'antd';
+import'../../layouts/SideBar.css';
 function SideMenu () {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const handleSubMenuOpenChange = (keys: string[]) => {
@@ -11,7 +12,10 @@ function SideMenu () {
 
   return(
     <>    
-    <Menu
+<Layout.Sider
+className="sidebar"
+>
+<Menu
       mode="inline"
       openKeys={openKeys}
       onOpenChange={handleSubMenuOpenChange}
@@ -33,6 +37,7 @@ function SideMenu () {
         </Link>
       </SubMenu>
     </Menu>
+</Layout.Sider>
     </>
   )
 }
