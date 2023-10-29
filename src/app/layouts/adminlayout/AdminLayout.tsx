@@ -6,6 +6,7 @@ import SideMenu from '../sideMenu/SideMenu';
 import BreadcrumbList from '../BreadcrumbShow';
 const { Header, Sider, Content } = Layout;
 import theme from '../../../theme/themeConfig';
+import TopMenu from './TopMenu';
 
  type LayoutProps = {
   children: ReactNode,
@@ -16,26 +17,27 @@ const AdminLayout = ({ children }: LayoutProps) => {
     {
       tittle: 'abc'
     }
-  ] 
-
+  ]   
   return (
       <StyledComponentsRegistry>
+        <Layout>
         <ConfigProvider theme={theme}>
+          <Header style={{ display: 'flex', alignItems: 'center' }}>
+            <TopMenu />
+        </Header>
         <Layout style={{ minHeight: '100vh' }}>       
           <Sider theme="light">
             <SideMenu />       
           </Sider>
-                <Layout>      
-                <Header style={{ display: 'flex', alignItems: 'center' }}>
-                  <div className="demo-logo" />        
-                </Header>
+                <Layout> 
                   <Layout style={{ padding: '0 6px 0x' }}>
                   <BreadcrumbList items={items} />
                     <Content style={{margin: '0px 0px 0px 10px'}}>{children}</Content>
                   </Layout>
-              </Layout>
+                </Layout>
         </Layout>
         </ConfigProvider>
+        </Layout>
     </StyledComponentsRegistry>
   );
 };
