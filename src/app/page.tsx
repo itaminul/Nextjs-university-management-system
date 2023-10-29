@@ -1,7 +1,9 @@
 import StyledComponentsRegistry from '@/lib/AntdRegistry';
 import { ConfigProvider } from 'antd';
 import Login from "./layouts/login/page";
+import { useAppSelector } from '@/redux/store';
 export default function Home() {
+  // const username = useAppSelector((state) => state.authReducer.value.username);
   return (
     <>
     
@@ -21,6 +23,7 @@ export default function Home() {
     >
 
         <Login />
+        
         {/* <Link href="/layouts/dashboard">Dahsbord</Link> */}
         {/* <Header /> */}
         {/* <SideMenu /> */}
