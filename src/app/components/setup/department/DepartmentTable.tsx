@@ -1,73 +1,48 @@
-'use client'
+'use client';
 import React from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { useGetSetupItemsQuery } from '@/services/setup/itemSetupApi';
+import { useGetDepartmentSetupQuery } from '@/services/setup/departmentSetupApi';
 
 interface DataType {
   key: React.Key;
-  name: string;
-  age: number;
-  address: string;
+  departmentName: string;
+  departmentDes: number;
 }
 
-const columns: ColumnsType<DataType> = [
-  {
-    title: 'Full Name',
-    width: 100,
-    dataIndex: 'name',
-    key: 'name',
-    fixed: 'left',
-  },
-  {
-    title: 'Age',
-    width: 100,
-    dataIndex: 'age',
-    key: 'age',
-    fixed: 'left',
-    sorter: true,
-  },
-  { title: 'Column 1', dataIndex: 'address', key: '1' },
-  { title: 'Column 2', dataIndex: 'address', key: '2' },
-  { title: 'Column 3', dataIndex: 'address', key: '3' },
-  { title: 'Column 4', dataIndex: 'address', key: '4' },
-  { title: 'Column 5', dataIndex: 'address', key: '5' },
-  { title: 'Column 6', dataIndex: 'address', key: '6' },
-  { title: 'Column 7', dataIndex: 'address', key: '7' },
-  { title: 'Column 8', dataIndex: 'address', key: '8' },
-  {
-    title: 'Action',
-    key: 'operation',
-    fixed: 'right',
-    width: 100,
-    render: () => <a>action</a>,
-  },
-];
-
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York Park',
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 40,
-    address: 'London Park',
-  },
-];
-
-
 const DepartmentTable = () => {
-  const { data: datetime } = useGetSetupItemsQuery();
-console.log("datetime", datetime);
-  return(
+  const columns: ColumnsType<DataType> = [
+    {
+      title: 'Department Name',
+      width: 100,
+      dataIndex: 'departmentName',
+      key: 'departmentName',
+      fixed: 'left',
+    },
+    {
+      title: 'Department Description',
+      width: 100,
+      dataIndex: 'departmentDes',
+      key: 'departmentDes',
+      fixed: 'left',
+      sorter: true,
+    },
+    {
+      title: 'Action',
+      key: 'operation',
+      fixed: 'right',
+      width: 100,
+      render: () => <a>action</a>,
+    },
+  ];
+
+  const { data } = useGetDepartmentSetupQuery();
+
+  return (
     <>
       <Table columns={columns} dataSource={data} scroll={{ x: 500, y: 500 }} />
     </>
-  )
-  };
+  );
+};
 
 export default DepartmentTable;
