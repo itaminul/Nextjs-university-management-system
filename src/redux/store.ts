@@ -1,13 +1,22 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import breadcrumbReducer from "../redux/features/breadcrumbSlice";
 import authReducer from '../redux/features/authSlice'
 import { TypedUseSelectorHook, useSelector } from "react-redux";
-export const store = configureStore({
-  reducer: {
-    breadcrumbs: breadcrumbReducer,
+import { itemSetupApi } from "@/services/setup/itemSetupApi";
+const rootReducer = combineReducers({
+  breadcrumbs: breadcrumbReducer,
     authReducer,
+    [itemSetupApi.reducerPath]: itemSetupApi.reducer,
 
-  }
+})
+
+const middleware = (getDefaultMiddleware:() => any[]) => 
+getDefaultMiddleware().concat([
+  itemSetupApi.middleware
+])
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware
 })
 
 export type RootState = ReturnType<typeof store.getState>

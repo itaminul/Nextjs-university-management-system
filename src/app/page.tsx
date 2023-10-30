@@ -5,8 +5,7 @@ import { useAppSelector } from '@/redux/store';
 export default function Home() {
   // const username = useAppSelector((state) => state.authReducer.value.username);
   return (
-    <>
-    
+    <>    
       <main>
     <StyledComponentsRegistry>
     <ConfigProvider
