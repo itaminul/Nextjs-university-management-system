@@ -2,6 +2,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { useGetSetupItemsQuery } from '@/services/setup/itemSetupApi';
 
 interface DataType {
   key: React.Key;
@@ -59,8 +60,14 @@ const data: DataType[] = [
 ];
 
 
-const DepartmentTable = () => (
-  <Table columns={columns} dataSource={data} scroll={{ x: 500, y: 500 }} />
-);
+const DepartmentTable = () => {
+  const { data: datetime } = useGetSetupItemsQuery();
+console.log("datetime", datetime);
+  return(
+    <>
+      <Table columns={columns} dataSource={data} scroll={{ x: 500, y: 500 }} />
+    </>
+  )
+  };
 
 export default DepartmentTable;

@@ -1,6 +1,6 @@
 'use client'
-import { Button, Card, Form, Input } from 'antd';
-import {  useRouter } from 'next/navigation';
+import { Button, Card, Form, Input, message } from 'antd';
+import {  redirect, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import AdminLayout from '../adminlayout/AdminLayout';
 import { logIn, logOut, toggleModerator } from '@/redux/features/authSlice'; 
@@ -12,6 +12,10 @@ type FieldType = {
   remember?: string;
 };
 
+type Credential = {
+  username: string;
+  password: string
+}
 function Page() {
     const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -28,22 +32,46 @@ function Page() {
     dispatch(logOut())
   };
 
-  const onFinish = async (values: any) => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      router.push('/layouts/dashboard'); 
-    }, 1000);
+  const onFinish =async ({ username, password }: Credential) => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `http://192.168.0.84:9007/user/login`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
+
+      const json = await response.json();
+      const token = await json.accessToken;
+      void message.success('Login Successfully');
+      console.log("token", token);
+      setTimeout(() => {
+        setLoading(false);
+        localStorage.setItem('accessToken', token);
+        localStorage.getItem('accessToken');
+        localStorage.setItem('isAuthenticated', 'true');
+        redirect('/layouts/dashboard');
+        // window.location.reload();
+      }, 1000);
+    } catch (error) {
+      console.log('error', error);
+    }
   };
+
   return (
     <>
       <AdminLayout>
     <Card title="Login" bordered={false} style={{ maxWidth: 500, marginTop: 250, marginLeft: 595, background: '#f0f2f5' }}>
-      {/* <Form
+      <Form
       name="login"
       initialValues={{ remember: true }}
       onFinish={onFinish}
-  > */}
+  >
     <Form.Item<FieldType>
       label="Username"
       name="username"
@@ -61,19 +89,19 @@ function Page() {
       <Input.Password />
     </Form.Item>
     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-      <Button onClick={onClickLogIn} type="primary" htmlType="submit">
+      <Button  type="primary" htmlType="submit">
         Submit
       </Button>
-      {isAuth && (
+      {/* {isAuth && (
          <Button onClick={onClickToggle} type="primary" htmlType="submit">
          Toggle
        </Button>
       )}
        <Button onClick={onClickLogOut} type="primary" htmlType="submit">
         Log Out
-      </Button>
+      </Button> */}
     </Form.Item>
-  {/* </Form> */}
+  </Form>
   </Card>
   </AdminLayout>
     </>
