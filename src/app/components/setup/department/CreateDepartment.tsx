@@ -1,8 +1,29 @@
-import { Button, Form, Input, Modal, Space } from "antd";
+import { Button, Form, Input, Modal, Space, message } from "antd";
 import { CreateDepartmentsProps } from "./CreateDepartmentType";
-
-
+import axios from 'axios';
 function CreateDepartment({title, visible, onCancel}: CreateDepartmentsProps) {
+
+   const onFinish = async(values: any) => {
+
+    const accessToken = localStorage.getItem('accessToken');
+    console.log("token", accessToken);
+    console.log("data", values);
+    try {
+     await axios.post('http://192.168.0.84:9007/department', values, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },       
+      });
+      message.success('Save successfully');
+      setTimeout(() => {        
+        onCancel();
+      }, 2000)
+    } catch (error) {
+      console.error('Form submission error:', error);
+    }
+   }
+   
   return(
     <>
      <Modal
@@ -13,16 +34,16 @@ function CreateDepartment({title, visible, onCancel}: CreateDepartmentsProps) {
      >
       <Form
           // form={form}
-          // onFinish={onFinish}
+           onFinish={onFinish}
           layout="vertical"
           autoComplete="off"
         >
 
 
-    <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+    <Form.Item name="departmentName" label="Name" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item name="age" label="Age" rules={[{ required: true }]}>
+          <Form.Item name="departmentDes" label="Age" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
           <Form.Item>
@@ -39,3 +60,7 @@ function CreateDepartment({title, visible, onCancel}: CreateDepartmentsProps) {
 }
 
 export default CreateDepartment;
+
+function onFinish() {
+  throw new Error("Function not implemented.");
+}
