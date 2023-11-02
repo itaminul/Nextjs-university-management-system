@@ -4,8 +4,11 @@ import Table, { ColumnsType } from "antd/es/table";
 import { Organizations } from "./OrganizationDataType";
 import CreateOrganization from "./CreateOrganization";
 import EditOrganization from "./EditOrganization";
+import { useState } from "react";
 
 function OrganizationTable() {
+  const [createOrganizationModalOpen, setCreateOrganizationModalOpen] = useState(false);
+  const [editOrganizationModalOpen, setEditOrganizationModalOpen] = useState(false);
  
   const columns: ColumnsType<Organizations[]> = [
     {
@@ -52,11 +55,15 @@ function OrganizationTable() {
   ];
 
   const handleEdit = (record: any) => {
+    setEditOrganizationModalOpen(true);
+  }
 
+  const handleOpenCreateModal = ()  => {
+    setCreateOrganizationModalOpen(true);
   }
   return(
     <>
-      <Button style={{float: 'right'}}>Add New</Button>
+      <Button style={{float: 'right'}} onClick={handleOpenCreateModal}>Add New</Button>
       <Table 
        dataSource={data} 
        columns={columns}
@@ -71,8 +78,17 @@ function OrganizationTable() {
           `${range[0]}-${range[1]} of ${total} items`,
       }} />
 
-      <CreateOrganization />
-      <EditOrganization />
+      <CreateOrganization 
+      title="Create Organization"
+      visible={createOrganizationModalOpen}
+      onCancel={() => setCreateOrganizationModalOpen(false)}
+      />
+      <EditOrganization
+      title="Edit Organization"
+      visible={editOrganizationModalOpen}
+      onCancel={() => setEditOrganizationModalOpen(false)}
+      
+      />
     </>
   )
 }
