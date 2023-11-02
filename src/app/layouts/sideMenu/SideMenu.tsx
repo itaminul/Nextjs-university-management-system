@@ -22,6 +22,11 @@ function SideMenu () {
         Dashboard
       </Menu.Item>
       <SubMenu key="sub1" title="Setup">
+      <Link href="/components/setup/organization">
+        <Menu.Item key="organization">
+        Organization
+        </Menu.Item>
+        </Link>
         <Link href="/components/setup/department">
         <Menu.Item key="department">
            Department

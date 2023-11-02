@@ -13,10 +13,11 @@ interface DataType {
 }
 
 const DepartmentTable = () => {
+  const { data, isLoading, isError } = useGetDepartmentSetupQuery();
   const[ createModalVisible, setCreateModalVisible] = useState(false);
   const[ editModalVisible, setEditModalVisible] = useState(false);
 
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<DataType[]> = [
     {
       title: 'Department Name',
       width: 100,
@@ -50,7 +51,6 @@ const DepartmentTable = () => {
   const handleEdit= (record: any) => {
     setEditModalVisible(true);
   }
-  const { isLoading, isError, data } = useGetDepartmentSetupQuery();
 
   if(isLoading){
     return '.... Loading'
@@ -67,7 +67,20 @@ const DepartmentTable = () => {
   return (
     <>
       <Button style={{float: 'right'}} onClick={handleCreate}>Add New</Button>
-      <Table columns={columns} dataSource={data} scroll={{ x: 500, y: 500 }} />
+      <Table 
+       dataSource={data} 
+      columns={columns}
+       scroll={{ x: 100 }}
+       pagination={{
+        showSizeChanger: true,
+        showQuickJumper: true,
+        pageSizeOptions: ['10', '20', '50', '100', '1000'],
+        defaultPageSize: 10,
+        // total: data.length,
+        showTotal: (total, range) =>
+          `${range[0]}-${range[1]} of ${total} items`,
+      }} />
+
       <CreateDepartment
       title="create"
       visible={createModalVisible}
