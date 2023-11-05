@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import { Organizations } from "../../app/components/setup/organization/OrganizationDataType";
-const BASE_URL = 'http://localhost:9007'
+const BASE_URL = 'http://localhost:8000'
 const accessToken = localStorage.getItem('accessToken');
+
 export const organizationSetupApi = createApi({
-  reducerPath: 'organizationSetupApi',
+  reducerPath: 'itemSetupApi',
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
     prepareHeaders: (headers) => {
@@ -15,18 +16,24 @@ export const organizationSetupApi = createApi({
   }),
   endpoints: (builder) => ({
     getOrgSetup:builder.query<Organizations[], void> ({
-      query: () => 'department',
+      query: () => 'organization',
       transformResponse: (response: any) => {
         const formattedData = response.results?.map((item: any) => ({
           id: item.id,
-          departmentName: item.departmentName,
-          departmentDes: item.departmentDes,
+          orgName: item.orgName,
+          orgDescription: item.orgDescription,
         }));
         return formattedData;
       },
+    }),
+    createOrganization: builder.mutation<Organizations, Partial<Organizations>>({
+      query: (newOrganization) => ({
+        url: 'organization',
+        method: 'POST',
+        body: newOrganization
+      })
     })
   })
-
 })
 
-export const {useGetOrgSetupQuery} = organizationSetupApi;
+export const {useGetOrgSetupQuery, useCreateOrganizationMutation} = organizationSetupApi;
