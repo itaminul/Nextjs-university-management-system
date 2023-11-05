@@ -3,7 +3,8 @@ import modalReducer from '../redux/features/modalSlice'
 import breadcrumbReducer from '../redux/features/breadcrumbSlice';
 import authReducer from '../redux/features/authSlice';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
-import { departmentSetupApi } from '@/services/setup/departmentSetupApi';
+import { departmentSetupApi } from '../services/setup/departmentSetupApi';
+import { organizationSetupApi } from '../services/setup/OrganizationSetupApi'
 
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   modal: modalReducer,
   authReducer,
   [departmentSetupApi.reducerPath]: departmentSetupApi.reducer,
+  [organizationSetupApi.reducerPath]: organizationSetupApi.reducer
 });
 
 const middleware = (getDefaultMiddleware: () => any[]) =>

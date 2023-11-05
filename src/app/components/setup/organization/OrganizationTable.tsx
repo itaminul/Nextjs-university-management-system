@@ -5,8 +5,10 @@ import { Organizations } from "./OrganizationDataType";
 import CreateOrganization from "./CreateOrganization";
 import EditOrganization from "./EditOrganization";
 import { useState } from "react";
+import { useGetOrgSetupQuery } from "@/services/setup/OrganizationSetupApi";
 
 function OrganizationTable() {
+  const {data,isLoading, isError}= useGetOrgSetupQuery();
   const [createOrganizationModalOpen, setCreateOrganizationModalOpen] = useState(false);
   const [editOrganizationModalOpen, setEditOrganizationModalOpen] = useState(false);
  
@@ -41,18 +43,14 @@ function OrganizationTable() {
     },
   ];
 
-  const data: Organizations[] = [
-    {
-      orgName: '1',
-      orgDescription: 'John Brown',
-      serialNo: 32,
-    },
-    {
-      orgName: '2',
-      orgDescription: 'Jim Green',
-      serialNo: 40,
-    },
-  ];
+  if(isLoading){
+    return '.... Loading'
+  }
+
+  if(isError){
+    return 'error';
+  }
+  
 
   const handleEdit = (record: any) => {
     setEditOrganizationModalOpen(true);

@@ -4,7 +4,7 @@ interface DataType {
   itemName: string;
   itemDescription: string;
 }
-const BASE_URL = 'http://localhost:9007'
+const BASE_URL = 'http://localhost:8000'
 const accessToken = localStorage.getItem('accessToken');
 export const departmentSetupApi = createApi({
   reducerPath: 'itemSetupApi',

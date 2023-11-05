@@ -1,18 +1,33 @@
 'use client'
-import { Button, Form, Input, Modal } from "antd"
-import { OrganizationsProps } from "./OrganizationDataType"
-import { Departments } from "../department/CreateDepartmentType";
+import { Button, Form, Input, Modal, message } from "antd"
+import { Organizations, OrganizationsProps } from "./OrganizationDataType"
+import { useCreateOrganizationMutation } from "@/services/setup/OrganizationSetupApi";
 
 function CreateOrganization({ title, visible, onCancel}:OrganizationsProps) {
   const [form] = Form.useForm();
+  const [createOrganization]  = useCreateOrganizationMutation();
 
   const handleOk = () => {
     form.submit()
 }
-
- const onFinish = (values: Departments) => {
-  const accessToken = localStorage.getItem('accessToken');
-  console.log("value", accessToken);
+ const onFinish = async(values: Organizations) => {
+  try {
+    const formatData = {
+      serialNo: Number(values.serialNo),
+      orgName: values.orgName,
+      orgDescription: values.orgDescription,
+    }
+    const response = await createOrganization (formatData);
+      setTimeout(() => {
+        void message.success('Created Successfully');
+        onCancel();
+        window.location.reload();
+      }, 2000);
+    
+    form.resetFields();
+  } catch (error) {
+    console.log("error", error);    
+  }
 
  }
 
