@@ -1,0 +1,21 @@
+.top-bar-font-end {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.left-menu {
+  margin-right: 100px; /* Push the right menu items to the right */
+  
+}
+
+.right-menu {
+  margin-left: auto; /* Push the left menu items to the left */
+}
