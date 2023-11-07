@@ -1,3 +1,4 @@
+"use client"
 import { Layout, Menu } from "antd";
 import SubMenu from "antd/es/menu/SubMenu";
 import Link from "next/link";
@@ -18,9 +19,6 @@ function SideMenu () {
       onOpenChange={handleSubMenuOpenChange}
       defaultSelectedKeys={['1']}
     >
-      <Menu.Item key="1">
-        Dashboard
-      </Menu.Item>
       <SubMenu key="sub1" title="Setup">
       <Link href="/components/setup/organization">
         <Menu.Item key="organization">

@@ -10,7 +10,7 @@ const SigninButton = () => {
   if (session && session.user)
     return (
       <>
-      <Dashboard />
+      {/* <Dashboard /> */}
       <div className="flex gap-4 ml-auto">
         <p className="text-sky-600">{session.user.name}</p>
         <Link

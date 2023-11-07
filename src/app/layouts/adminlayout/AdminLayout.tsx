@@ -4,9 +4,8 @@ import { ConfigProvider, Layout } from 'antd';
 import { type ReactNode } from 'react';
 import SideMenu from '../sideMenu/SideMenu';
 import BreadcrumbList from '../BreadcrumbShow';
-const { Header, Sider, Content } = Layout;
+const { Sider, Content } = Layout;
 import theme from '../../../theme/themeConfig';
-import TopMenu from './TopMenu';
 
  type LayoutProps = {
   children: ReactNode,
@@ -24,11 +23,6 @@ const AdminLayout = ({ children }: LayoutProps) => {
       <StyledComponentsRegistry>       
         <Layout>       
         <ConfigProvider theme={theme}>
-        {isAuthenticated && (      
-          <Header style={{ display: 'flex', alignItems: 'center' }}>
-            <TopMenu />
-        </Header>
-          )}       
         <Layout style={{ minHeight: '100vh' }}>       
         {isAuthenticated && (
            <Sider theme="light">
