@@ -63,7 +63,6 @@ const DepartmentTable = () => {
   const handleCreate = () =>  {
     setCreateModalVisible(true);
   }
-
   return (
     <>
       <Button style={{float: 'right'}} onClick={handleCreate}>Add New</Button>

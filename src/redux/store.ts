@@ -16,7 +16,11 @@ const rootReducer = combineReducers({
 });
 
 const middleware = (getDefaultMiddleware: () => any[]) =>
-  getDefaultMiddleware().concat([departmentSetupApi.middleware]);
+  getDefaultMiddleware().concat([
+    departmentSetupApi.middleware,
+    organizationSetupApi.middleware
+  ]);
+
 export const store = configureStore({
   reducer: rootReducer,
   middleware,
