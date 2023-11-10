@@ -74,26 +74,30 @@ const Navbar = () => {
     <div>
       {isMobile ? (
         <Button type="primary" onClick={showDrawer}>
-         <MenuUnfoldOutlined />
+          <MenuUnfoldOutlined />
         </Button>
       ) : (
-
-      <div className="top-bar">
-      <Menu style={{  display: 'flex'}} className="left-menu">
-        <Menu.Item key="home">Home</Menu.Item>
-        <Menu.Item key="1">About</Menu.Item>
-        <Menu.Item key="2">Mission & Vision</Menu.Item>
-        <Menu.Item key="3">Notice</Menu.Item>
-        <Menu.Item key="4">Contact</Menu.Item>
-      </Menu>     
-      <Menu style={{  display: 'flex'}} className="right-menu">
-        <Menu.Item key="signin">
-        <Link href={'/api/auth/signin'}>
-          <UserOutlined /> Login
-          </Link>
-        </Menu.Item>
-      </Menu>
-    </div>
+        <div className="top-bar">
+          <Menu
+            inlineIndent={0}
+             style={{ display: 'flex' }}
+            className="left-menu"
+          >
+            <Menu.Item key="home">Home</Menu.Item>
+            <Menu.Item key="1">About</Menu.Item>
+            <Menu.Item key="2">Mission & Vision</Menu.Item>
+            <Menu.Item key="4">Admission</Menu.Item>
+            <Menu.Item key="5">Notice</Menu.Item>
+            <Menu.Item key="6">Contact</Menu.Item>
+          </Menu>
+          <Menu style={{ display: 'flex' }} className="right-menu">
+            <Menu.Item key="signin">
+              <Link href={'/api/auth/signin'}>
+                <UserOutlined /> Login
+              </Link>
+            </Menu.Item>
+          </Menu>
+        </div>
       )}
 
       <Drawer
