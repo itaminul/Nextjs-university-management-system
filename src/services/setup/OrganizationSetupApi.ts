@@ -34,7 +34,17 @@ export const organizationSetupApi = createApi({
         }),
       },
     ),
+    updateOrganizationDataById: builder.mutation<
+      void,
+      { id: number; formData: Organizations }
+    >({
+      query: ({ id, formData }) => ({
+        url: `/organization/${id}`,
+        method: 'PATCH',
+        body: formData,
+      }),
+    }),
   }),
 });
 
-export const {useGetOrgSetupQuery, useCreateOrganizationMutation} = organizationSetupApi;
+export const {useGetOrgSetupQuery, useCreateOrganizationMutation, useUpdateOrganizationDataByIdMutation} = organizationSetupApi;

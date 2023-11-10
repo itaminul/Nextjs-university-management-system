@@ -10,36 +10,30 @@ function SideMenu () {
     setOpenKeys(keys);
   };
 
-  return(
-    <>    
-<Layout.Sider className="sidebar" style={{background: 'white'}}>
-<Menu
-      mode="inline"
-      openKeys={openKeys}
-      onOpenChange={handleSubMenuOpenChange}
-      defaultSelectedKeys={['1']}
-    >
-      <SubMenu key="sub1" title="Setup">
-      <Link href="/components/setup/organization">
-        <Menu.Item key="organization">
-        Organization
-        </Menu.Item>
-        </Link>
-        <Link href="/components/setup/department">
-        <Menu.Item key="department">
-           Department
-        </Menu.Item>
-        </Link>
-        <Link href="/components/setup/designation">
-        <Menu.Item key="designation">
-           Designation
-        </Menu.Item>
-        </Link>
-      </SubMenu>
-    </Menu>
-</Layout.Sider>
+  return (
+    <>
+      <Layout.Sider style={{height: '100%'}}>
+        <Menu
+          mode="inline"
+          openKeys={openKeys}
+          onOpenChange={handleSubMenuOpenChange}
+          defaultSelectedKeys={['1']}
+        >
+          <SubMenu key="sub1" title="Setup">
+            <Link href="/components/setup/organization">
+              <Menu.Item key="organization">Organization</Menu.Item>
+            </Link>
+            <Link href="/components/setup/department">
+              <Menu.Item key="department">Department</Menu.Item>
+            </Link>
+            <Link href="/components/setup/designation">
+              <Menu.Item key="designation">Designation</Menu.Item>
+            </Link>
+          </SubMenu>
+        </Menu>
+      </Layout.Sider>
     </>
-  )
+  );
 }
 
 export default SideMenu;

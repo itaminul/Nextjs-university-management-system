@@ -13,6 +13,8 @@ function OrganizationTable() {
     useState(false);
   const [editOrganizationModalOpen, setEditOrganizationModalOpen] =
     useState(false);
+  const [selectedOrganization, setSelectedOrganization] =
+    useState<Organizations>(null);
 
   const columns: ColumnsType<Organizations[]> = [
     {
@@ -37,6 +39,7 @@ function OrganizationTable() {
       width: 100,
       render: (_: string, record: any) => (
         <Button
+        type="link"
           onClick={() => {
             handleEdit(record);
           }}
@@ -55,7 +58,8 @@ function OrganizationTable() {
     return 'error';
   }
 
-  const handleEdit = (record: any) => {
+  const handleEdit = (record: Organizations) => {
+    setSelectedOrganization(record)
     setEditOrganizationModalOpen(true);
   };
 
@@ -91,6 +95,7 @@ function OrganizationTable() {
       <EditOrganization
         title="Edit Organization"
         visible={editOrganizationModalOpen}
+        initialValues={selectedOrganization}
         onCancel={() => setEditOrganizationModalOpen(false)}
       />
     </>

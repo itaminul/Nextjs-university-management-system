@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 const Navbar = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
+  const [dashdrawerVisible, setDasboardDrawerVisible] = useState(false);
 
   const showDrawer = () => {
     setDrawerVisible(true);
@@ -19,7 +20,9 @@ const Navbar = () => {
   const onClose = () => {
     setDrawerVisible(false);
   };
-
+  const showDashbordDrawer = () => {
+    setDasboardDrawerVisible(true);
+  }
   const isMobile = window.innerWidth < 768;
 
   const { data: session } = useSession();
@@ -29,26 +32,23 @@ const Navbar = () => {
     <div>
       {isMobile ? (
         <Button type="primary" onClick={showDrawer}>
-         <MenuUnfoldOutlined />
+          <MenuUnfoldOutlined />
         </Button>
       ) : (
-      <div className="top-bar">
-      <Menu style={{  display: 'flex'}}  className="left-menu">
-        <Menu.Item key="home">Home</Menu.Item>
-        <Menu.Item key="home">Dashbord</Menu.Item>
-        <Menu.Item key="contact">
-        <Link href={'/layouts/dashboard'}>Menu</Link>
-        </Menu.Item>
-      </Menu>
-      <Menu style={{  display: 'flex'}}  className="right-menu">
-        <Menu.Item key="signout">
-        <Link href={'/api/auth/signout'}>
-          <UserOutlined /> Log Out
+        <div className="top-bar">
+          <Link href={'/layouts/dashboard'}>           
+            <Button type="primary" onClick={showDashbordDrawer}>
+              <MenuUnfoldOutlined />
+            </Button>
           </Link>
-        </Menu.Item>
-      </Menu>
-
-    </div>
+          <Menu style={{ display: 'flex' }} className="right-menu">
+            <Menu.Item key="signout">
+              <Link href={'/api/auth/signout'}>
+                <UserOutlined /> Log Out
+              </Link>
+            </Menu.Item>
+          </Menu>
+        </div>
       )}
       <Drawer
         title="Menu"
@@ -57,7 +57,6 @@ const Navbar = () => {
         onClose={onClose}
         open={isMobile && drawerVisible}
       >
-
         <Menu mode="vertical" theme="light">
           <Menu.Item key="1" icon={<HomeOutlined />}>
             Home
