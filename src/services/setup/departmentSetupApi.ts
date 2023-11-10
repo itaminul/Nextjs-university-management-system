@@ -1,9 +1,5 @@
+import { Departments } from "@/app/components/setup/department/CreateDepartmentType";
 import { createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-interface DataType {
-  key: React.Key;
-  departmentName: string;
-  departmentDescription: string;
-}
 const BASE_URL = 'http://localhost:4001/api/';
 console.log('BASE_URL', BASE_URL);
 const accessToken = localStorage.getItem('accessToken');
@@ -19,7 +15,7 @@ export const departmentSetupApi = createApi({
     },
   }),
   endpoints: (builder) => ({
-    getDepartmentSetup: builder.query<DataType[], void>({
+    getDepartmentSetup: builder.query<Departments[], void>({
       query: () => 'departmentSetup',
       transformResponse: (response: any) => {
         console.log('formattedData', response);
@@ -29,11 +25,25 @@ export const departmentSetupApi = createApi({
           departmentDescription: item.departmentDescription,
         }));
         return formattedData;
-
       },
-      
     }),
-    
+    createDepartmentSetup: builder.mutation<Departments, Partial<Departments>>({
+      query: (newDepartment) => ({
+        url: 'department',
+        method: 'POST',
+        body: newDepartment,
+      }),
+    }),
+    updateDepartmentsSetup: builder.mutation<
+      void,
+      { id: number; formData: Departments }
+    >({
+      query: ({ id, formData }) => ({
+        url: `/department/${id}`,
+        method: 'PATCH',
+        body: formData,
+      }),
+    }),
   }),
 });
 
