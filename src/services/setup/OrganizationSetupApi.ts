@@ -38,10 +38,10 @@ export const organizationSetupApi = createApi({
       void,
       { id: number; formData: Organizations }
     >({
-      query: ({ id, formData }) => ({
+      query: ({id,data}) => ({
         url: `/organization/${id}`,
         method: 'PATCH',
-        body: formData,
+        body: data,
       }),
     }),
   }),
