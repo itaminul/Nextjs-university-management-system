@@ -17,7 +17,13 @@ function EditOrganization({
     try {
       const values = await form.validateFields();
       console.log("values", values);
-      await updateOrganization({ ...initialValues, ...values }).unwrap();
+      const newValue = {
+        id: values.id,
+        orgName: values.orgName,
+        orgDescription: values.orgDescription,
+      };
+      console.log("ddd", newValue);
+      await updateOrganization(values).unwrap();
     } catch (error) {
       console.log('error', error);
     }
@@ -36,7 +42,7 @@ function EditOrganization({
           <Form.Item
             name="serialNo"
             label="Serial No"
-            rules={[{ required: true }]}
+           // rules={[{ required: true }]}
           >
             <Input />
           </Form.Item>
