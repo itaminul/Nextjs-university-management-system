@@ -23,7 +23,7 @@ function EditOrganization({
         orgDescription: values.orgDescription,
       };
       console.log("ddd", newValue);
-      await updateOrganization(values).unwrap();
+      await updateOrganization({ ...initialValues, ...values }).unwrap();
     } catch (error) {
       console.log('error', error);
     }
