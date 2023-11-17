@@ -18,6 +18,13 @@ function OrganizationTable() {
 
   const columns: ColumnsType<Organizations[]> = [
     {
+      title: 'UD ID',
+      width: 100,
+      dataIndex: 'serialNo',
+      key: 'serialNo',
+      fixed: 'left',
+    },
+    {
       title: 'Organization Name',
       width: 100,
       dataIndex: 'orgName',
@@ -39,7 +46,7 @@ function OrganizationTable() {
       width: 100,
       render: (_: string, record: any) => (
         <Button
-        type="link"
+          type="link"
           onClick={() => {
             handleEdit(record);
           }}
