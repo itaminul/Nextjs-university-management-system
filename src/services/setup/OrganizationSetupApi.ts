@@ -19,6 +19,7 @@ export const organizationSetupApi = createApi({
       transformResponse: (response: any) => {
         const formattedData = response.results?.map((item: any) => ({
           id: item.id,
+          serialNo: item.serialNo,
           orgName: item.orgName,
           orgDescription: item.orgDescription,
         }));
