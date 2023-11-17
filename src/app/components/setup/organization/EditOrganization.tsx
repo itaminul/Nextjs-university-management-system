@@ -1,5 +1,5 @@
 'use client'
-import { Button, Form, Input, Modal, Space } from "antd"
+import { Button, Form, Input, Modal, Space, message } from "antd"
 import { OrganizationsProps } from "./OrganizationDataType"
 import { useUpdateOrganizationDataByIdMutation } from "../../../../services/setup/OrganizationSetupApi"
 import { useForm } from "antd/es/form/Form";
@@ -13,17 +13,13 @@ function EditOrganization({
   const [form] = useForm();
   const [updateOrganization] = useUpdateOrganizationDataByIdMutation();
   const onFinish = async() => {
-    console.log('update', updateOrganization);
     try {
       const values = await form.validateFields();
-      console.log("values", values);
-      const newValue = {
-        id: values.id,
-        orgName: values.orgName,
-        orgDescription: values.orgDescription,
-      };
-      console.log("ddd", newValue);
       await updateOrganization({ ...initialValues, ...values }).unwrap();
+      message.success('Update successfully');
+      setTimeout(() => {
+        onCancel()
+      }, 2000)
     } catch (error) {
       console.log('error', error);
     }
@@ -42,7 +38,26 @@ function EditOrganization({
           <Form.Item
             name="serialNo"
             label="Serial No"
-           // rules={[{ required: true }]}
+            rules={[
+              {
+                required: false,
+              //  pattern: new RegExp(/^([-]?[1-9][0-9]*|0)$/),
+               // message: 'Serail number muust be number',
+              },
+              () => ({
+                validator(_, value) {
+                  if (isNaN(value)) {
+                    return Promise.reject('Serial has to be a number');
+                  }
+                  if (value.length < 0) {
+                    return Promise.reject(
+                      "Serial number can't be less the 1 digit",
+                    );
+                  }
+                  return Promise.resolve();
+                },
+              }),
+            ]}
           >
             <Input />
           </Form.Item>
