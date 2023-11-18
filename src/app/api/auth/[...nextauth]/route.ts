@@ -23,7 +23,8 @@ export const authOptions: NextAuthOptions = {
           if (!credentials?.username || !credentials?.password) return null;
           const { username, password } = credentials;
           console.log("cre", username);
-          const res = await fetch('http://localhost:8000/user/login', {
+             const res = await fetch('http://192.168.0.84:4001/api/auth/loginuser', {
+            // const res = await fetch('http://localhost:8000/user/login', {
             method: 'POST',
             body: JSON.stringify({
               username,

@@ -1,12 +1,13 @@
 export interface Departments {
   id: number,
   departmentName: string;
-  departmentDes: string;
+  departmentDescription: string;
+  orgId: number;
 }
-
 export interface CreateDepartmentsProps {
   title: string;
   visible: boolean;
+  initialValues?: any;
   onCancel: () => void;
 }
 
