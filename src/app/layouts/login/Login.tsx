@@ -1,9 +1,9 @@
-'use client'
+'use client';
 import { Button, Card, Form, Input, message } from 'antd';
-import {  redirect, useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import AdminLayout from '../adminlayout/AdminLayout';
-import { logIn, logOut, toggleModerator } from '@/redux/features/authSlice'; 
+import { logIn, logOut, toggleModerator } from '@/redux/features/authSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch, useAppSelector } from '@/redux/store';
 type FieldType = {
@@ -14,13 +14,13 @@ type FieldType = {
 
 type Credential = {
   username: string;
-  password: string
-}
+  password: string;
+};
 function Page() {
-    const router = useRouter();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [username, setUsername] = useState("");
-  const dispatch = useDispatch<AppDispatch>()
+  const [username, setUsername] = useState('');
+  const dispatch = useDispatch<AppDispatch>();
   const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
   const onClickLogIn = () => {
     dispatch(logIn(username));
@@ -29,32 +29,30 @@ function Page() {
     dispatch(toggleModerator());
   };
   const onClickLogOut = () => {
-    dispatch(logOut())
+    dispatch(logOut());
   };
 
-  const onFinish =async ({ username, password }: Credential) => {
+  const onFinish = async ({ username, password }: Credential) => {
     try {
+      console.log("user name", username);
       setLoading(true);
-      const response = await fetch(
-        `http://192.168.0.84:9007/user/login`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, password }),
-        }
-      );
+      const response = await fetch(`http://192.168.0.84:4001/api/auth/loginuser`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
       const json = await response.json();
       const token = await json.accessToken;
       void message.success('Login Successfully');
-      console.log("token", token);
+      //console.log('token', token);
       setTimeout(() => {
         setLoading(false);
-        localStorage.setItem('accessToken', token);
-        localStorage.getItem('accessToken');
-        localStorage.setItem('isAuthenticated', 'true');
+      //  localStorage.setItem('accessToken', token);
+        //localStorage.getItem('accessToken');
+        //localStorage.setItem('isAuthenticated', 'true');
         redirect('/layouts/dashboard');
         // window.location.reload();
       }, 1000);
@@ -66,33 +64,45 @@ function Page() {
   return (
     <>
       <AdminLayout>
-    <Card title="Login" bordered={false} style={{ maxWidth: 500, marginTop: 250, marginLeft: 595, background: '#f0f2f5' }}>
-      <Form
-      name="login"
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-  >
-    <Form.Item<FieldType>
-      label="Username"
-      name="username"
-      
-      rules={[{ required: true, message: 'Please input your username!' }]}
-    >
-      <Input onChange={(e) => setUsername(e.target.value)} />
-    </Form.Item>
+        <Card
+          title="Login"
+          bordered={false}
+          style={{
+            maxWidth: 500,
+            marginTop: 250,
+            marginLeft: 595,
+            background: '#f0f2f5',
+          }}
+        >
+          <Form
+            name="login"
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+          >
+            <Form.Item<FieldType>
+              label="Username"
+              name="username"
+              rules={[
+                { required: true, message: 'Please input your username!' },
+              ]}
+            >
+              <Input onChange={(e) => setUsername(e.target.value)} />
+            </Form.Item>
 
-    <Form.Item<FieldType>
-      label="Password"
-      name="password"
-      rules={[{ required: true, message: 'Please input your password!' }]}
-    >
-      <Input.Password />
-    </Form.Item>
-    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-      <Button  type="primary" htmlType="submit">
-        Submit
-      </Button>
-      {/* {isAuth && (
+            <Form.Item<FieldType>
+              label="Password"
+              name="password"
+              rules={[
+                { required: true, message: 'Please input your password!' },
+              ]}
+            >
+              <Input.Password />
+            </Form.Item>
+            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+              {/* {isAuth && (
          <Button onClick={onClickToggle} type="primary" htmlType="submit">
          Toggle
        </Button>
@@ -100,12 +110,12 @@ function Page() {
        <Button onClick={onClickLogOut} type="primary" htmlType="submit">
         Log Out
       </Button> */}
-    </Form.Item>
-  </Form>
-  </Card>
-  </AdminLayout>
+            </Form.Item>
+          </Form>
+        </Card>
+      </AdminLayout>
     </>
   );
-};
+}
 
 export default Page;

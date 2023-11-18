@@ -5,6 +5,7 @@ import type { ColumnsType } from 'antd/es/table';
 import { useGetDepartmentSetupQuery } from '@/services/setup/departmentSetupApi';
 import CreateDepartment from './CreateDepartment';
 import EditDepartment from './EditDepartment';
+import { Departments } from './CreateDepartmentType';
 
 interface DataType {
   key: React.Key;
@@ -16,6 +17,7 @@ const DepartmentTable = () => {
   const { data, isLoading, isError } = useGetDepartmentSetupQuery();
   const[ createModalVisible, setCreateModalVisible] = useState(false);
   const[ editModalVisible, setEditModalVisible] = useState(false);
+  const[ selectedValue, setSelectedValue] = useState<Departments>(null);
 
   const columns: ColumnsType<DataType[]> = [
     {
@@ -26,10 +28,10 @@ const DepartmentTable = () => {
       fixed: 'left',
     },
     {
-      title: 'Department Description',
+      title: 'Description',
       width: 100,
-      dataIndex: 'departmentDes',
-      key: 'departmentDes',
+      dataIndex: 'departmentDescription',
+      key: 'departmentDescription',
       fixed: 'left',
       sorter: true,
     },
@@ -48,7 +50,8 @@ const DepartmentTable = () => {
     },
   ];
 
-  const handleEdit= (record: any) => {
+  const handleEdit= (record: Departments) => {
+    setSelectedValue(record);
     setEditModalVisible(true);
   }
 
@@ -88,6 +91,7 @@ const DepartmentTable = () => {
       <EditDepartment 
       title="update"
       visible={editModalVisible}
+      initialValues={selectedValue}
       onCancel={() => setEditModalVisible(false)}
       />
     </>

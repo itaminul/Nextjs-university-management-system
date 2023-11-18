@@ -1,4 +1,5 @@
 export interface Organizations {
+  id: number;
   orgName: string;
   orgDescription: string;
   serialNo: number;

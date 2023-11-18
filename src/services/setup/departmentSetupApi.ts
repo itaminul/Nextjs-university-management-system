@@ -1,6 +1,6 @@
 import { Departments } from "@/app/components/setup/department/CreateDepartmentType";
 import { createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-const BASE_URL = 'http://localhost:4001/api/';
+const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/`;
 console.log('BASE_URL', BASE_URL);
 const accessToken = localStorage.getItem('accessToken');
 export const departmentSetupApi = createApi({
@@ -23,13 +23,14 @@ export const departmentSetupApi = createApi({
           id: item.id,
           departmentName: item.departmentName,
           departmentDescription: item.departmentDescription,
+          orgId: item.orgId,
         }));
         return formattedData;
       },
     }),
     createDepartmentSetup: builder.mutation<Departments, Partial<Departments>>({
       query: (newDepartment) => ({
-        url: 'department',
+        url: 'departmentSetup',
         method: 'POST',
         body: newDepartment,
       }),
@@ -38,15 +39,15 @@ export const departmentSetupApi = createApi({
       void,
       { id: number; formData: Departments }
     >({
-      query: ({ id, formData }) => ({
-        url: `/department/${id}`,
+      query: (data) => ({
+        url: `/departmentSetup/${data.id}`,
         method: 'PATCH',
-        body: formData,
+        body: data,
       }),
     }),
   }),
 });
 
-export const {useGetDepartmentSetupQuery} = departmentSetupApi;
+export const {useGetDepartmentSetupQuery, useCreateDepartmentSetupMutation, useUpdateDepartmentsSetupMutation} = departmentSetupApi;
 
 

@@ -27,13 +27,15 @@ function EditOrganization({
 
   return (
     <>
-      <Modal title={title} open={visible} onCancel={onCancel}>
+      <Modal title={title} open={visible} onCancel={onCancel} footer={null}
+      >
         <Form
           form={form}
           layout="vertical"
           autoComplete="off"
           initialValues={initialValues}
           onFinish={onFinish}
+          
         >
           <Form.Item
             name="serialNo"
