@@ -45,7 +45,7 @@ function OrganizationTable() {
       fixed: 'right',
       width: 100,
       render: (_: string, record: any) => {
-        if(record.activeStatus===false) {
+        if(record.activeStatus===true) {
           return (
             <>
              <Button>Active</Button>
