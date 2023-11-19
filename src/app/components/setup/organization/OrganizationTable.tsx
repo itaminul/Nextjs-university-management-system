@@ -44,8 +44,12 @@ function OrganizationTable() {
       key: 'operation',
       fixed: 'right',
       width: 100,
-      render: (_: string, record: any) => (
-        <Button
+      render: (_: string, record: any) => {
+        if(record.activeStatus===false) {
+          return (
+            <>
+             <Button>Active</Button>
+            <Button
           type="link"
           onClick={() => {
             handleEdit(record);
@@ -53,7 +57,24 @@ function OrganizationTable() {
         >
           Edit
         </Button>
-      ),
+            </>
+          )
+        }else{
+          return (
+            <>
+             <Button>Inactive</Button>
+            <Button
+          type="link"
+          onClick={() => {
+            handleEdit(record);
+          }}
+        >
+          Edit
+        </Button>
+            </>
+          )
+        }
+      }
     },
   ];
 

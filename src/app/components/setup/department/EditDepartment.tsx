@@ -1,31 +1,49 @@
 import { Button, Form, Input, Modal, Space, message, Select } from "antd";
-const { Option } = Select;
-import { CreateDepartmentsProps, Departments } from "./CreateDepartmentType";
+import { CreateDepartmentsProps } from "./CreateDepartmentType";
 import { useGetOrgSetupQuery } from "@/services/setup/OrganizationSetupApi";
 import { Organizations } from "../organization/OrganizationDataType";
 import { useUpdateDepartmentsSetupMutation } from "@/services/setup/departmentSetupApi";
-
+import { useEffect } from "react";
 
 function EditDepartment({ title, visible, onCancel, initialValues}: CreateDepartmentsProps) {
+ 
   const [form] = Form.useForm();
   const { data: orgOptionData} =  useGetOrgSetupQuery();
   const [ updateDepartment ] = useUpdateDepartmentsSetupMutation();
-  const handleOptionChange = (value: string) => {
-    console.log(`Selected: ${value}`);
+  const handleOptionChange = () => {
   };
-  const handleActiveStatusChange = (vlaue: string) => {
+
+  const handleActiveStatusChange = () => {
 
   }
+
+  // const [activeStatus, setStatus] = useState<boolean>(true); // Status state
+  // const [selectedOption, setSelectedOption] = useState<string>('');
+  // const handleActiveStatusChange = (value: string) => {
+  //   setStatus(value === 'true');
+  //   setSelectedOption(value);
+  // };
+
+  useEffect(() => {
+    form.setFieldsValue({ 
+      departmentName: initialValues?.departmentName,
+      departmentDescription: initialValues?.departmentDescription,
+      orgId: initialValues?.orgId,
+      activeStatus: initialValues?.activeStatus,
+     }); 
+  }, [form, initialValues]);
+
+
   const onFinish = async() => {
     try {
       const values = await form.validateFields();
       console.log(" dept values", values);
       await updateDepartment({ ...initialValues, ...values}).unwrap();      
-      message.success('Updated successfully')
+      message.success('Updated successfully')     
       setTimeout(() => {
         onCancel();
       }, 2000);
-    } catch (error) {
+        } catch (error) {
       console.log("error", error);
     }
 
@@ -62,15 +80,14 @@ function EditDepartment({ title, visible, onCancel, initialValues}: CreateDepart
               ))}
             </Select>
           </Form.Item>
-          <Form.Item>
+          {/* <Form.Item name="activeStatus" label="Active Status">
 
-          <Select  defaultValue="activeStatus" onChange={handleActiveStatusChange}>
-          <Select.Option value="activeStatus" disabled>Select an option</Select.Option>
+          <Select value={initialValues?.activeStatus? 'true':'false'} onChange={handleActiveStatusChange}>
           <Select.Option value="true">True</Select.Option>
           <Select.Option value="false">False</Select.Option>
         </Select>
 
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item>
             <Space>        
             <div style={{ float: 'right'}}>      

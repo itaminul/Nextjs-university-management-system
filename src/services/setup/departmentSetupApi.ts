@@ -24,6 +24,7 @@ export const departmentSetupApi = createApi({
           departmentName: item.departmentName,
           departmentDescription: item.departmentDescription,
           orgId: item.orgId,
+          activeStatus: item.activeStatus,
         }));
         return formattedData;
       },

@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Button, Table } from 'antd';
+import { Button, Form, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { useGetDepartmentSetupQuery } from '@/services/setup/departmentSetupApi';
 import CreateDepartment from './CreateDepartment';
@@ -14,6 +14,8 @@ interface DataType {
 }
 
 const DepartmentTable = () => {
+  const [form] = Form.useForm();
+  const [statusValue, setstatusValue] = useState<bollean>(true)
   const { data, isLoading, isError } = useGetDepartmentSetupQuery();
   const[ createModalVisible, setCreateModalVisible] = useState(false);
   const[ editModalVisible, setEditModalVisible] = useState(false);
@@ -40,19 +42,46 @@ const DepartmentTable = () => {
       key: 'operation',
       fixed: 'right',
       width: 100,
-      render: (_: string, record:any) =>
-        <Button
-        onClick={() => {
-          handleEdit(record)
-        }}
-        >Edit</Button>
-      ,
+      render: (_: string, record: any) => {
+        if(record.activeStatus===true) {
+          return (
+            <>
+             <Button>Active</Button>
+            <Button
+          type="link"
+          onClick={() => {
+            handleEdit(record);
+          }}
+        >
+          Edit
+        </Button>
+            </>
+          )
+        }else{
+          return (
+            <>
+             <Button>Inactive</Button>
+            <Button
+          type="link"
+          onClick={() => {
+            handleEdit(record);
+          }}
+        >
+          Edit
+        </Button>
+            </>
+          )
+        }
+      }
     },
   ];
 
   const handleEdit= (record: Departments) => {
     setSelectedValue(record);
+    form.setFieldsValue({ status: statusValue ? 'active' : 'inactive' });
+  
     setEditModalVisible(true);
+
   }
 
   if(isLoading){

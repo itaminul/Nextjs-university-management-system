@@ -3,6 +3,7 @@ import { Button, Form, Input, Modal, Space, message } from "antd"
 import { OrganizationsProps } from "./OrganizationDataType"
 import { useUpdateOrganizationDataByIdMutation } from "../../../../services/setup/OrganizationSetupApi"
 import { useForm } from "antd/es/form/Form";
+import { useEffect } from "react";
 
 function EditOrganization({
   title,
@@ -12,6 +13,16 @@ function EditOrganization({
 }: OrganizationsProps) {
   const [form] = useForm();
   const [updateOrganization] = useUpdateOrganizationDataByIdMutation();
+
+  useEffect(() => {
+    form.setFieldsValue({
+      serialNo: initialValues?.serialNo,
+      orgName: initialValues?.orgName,
+      orgDescription: initialValues?.orgDescription,
+
+    })
+  }, [form,initialValues])
+
   const onFinish = async() => {
     try {
       const values = await form.validateFields();
