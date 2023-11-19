@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Button, Table } from 'antd';
+import { Button, Form, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { useGetDepartmentSetupQuery } from '@/services/setup/departmentSetupApi';
 import CreateDepartment from './CreateDepartment';
@@ -14,6 +14,8 @@ interface DataType {
 }
 
 const DepartmentTable = () => {
+  const [form] = Form.useForm();
+  const [statusValue, setstatusValue] = useState<bollean>(true)
   const { data, isLoading, isError } = useGetDepartmentSetupQuery();
   const[ createModalVisible, setCreateModalVisible] = useState(false);
   const[ editModalVisible, setEditModalVisible] = useState(false);
@@ -52,7 +54,10 @@ const DepartmentTable = () => {
 
   const handleEdit= (record: Departments) => {
     setSelectedValue(record);
+    form.setFieldsValue({ status: statusValue ? 'active' : 'inactive' });
+  
     setEditModalVisible(true);
+
   }
 
   if(isLoading){
