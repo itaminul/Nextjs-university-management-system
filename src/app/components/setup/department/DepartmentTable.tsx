@@ -42,13 +42,37 @@ const DepartmentTable = () => {
       key: 'operation',
       fixed: 'right',
       width: 100,
-      render: (_: string, record:any) =>
-        <Button
-        onClick={() => {
-          handleEdit(record)
-        }}
-        >Edit</Button>
-      ,
+      render: (_: string, record: any) => {
+        if(record.activeStatus===true) {
+          return (
+            <>
+             <Button>Active</Button>
+            <Button
+          type="link"
+          onClick={() => {
+            handleEdit(record);
+          }}
+        >
+          Edit
+        </Button>
+            </>
+          )
+        }else{
+          return (
+            <>
+             <Button>Inactive</Button>
+            <Button
+          type="link"
+          onClick={() => {
+            handleEdit(record);
+          }}
+        >
+          Edit
+        </Button>
+            </>
+          )
+        }
+      }
     },
   ];
 
