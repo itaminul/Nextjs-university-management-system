@@ -30,6 +30,12 @@ function SideMenu () {
               <Menu.Item key="designation">Designation</Menu.Item>
             </Link>
           </SubMenu>
+
+          <SubMenu key="sub2" title="Employee">
+            <Link href="/components/employee">
+              <Menu.Item key="Employee">Employee</Menu.Item>
+            </Link>
+          </SubMenu>
         </Menu>
       </Layout.Sider>
     </>
