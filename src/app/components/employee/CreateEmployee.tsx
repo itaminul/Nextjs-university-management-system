@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import type { CollapseProps } from 'antd';
 import { Collapse, Modal, Select } from 'antd';
 import { CreateEmployeeProps } from './EmployeeType';
+import CreateEmployeeForm from './CreateEmployeeForm';
 
 const { Option } = Select;
 
@@ -63,8 +64,9 @@ function CreateEmployee ({visible, title, onCancel}:CreateEmployeeProps) {
         defaultActiveKey={['1']}
         onChange={onChange}
         expandIconPosition={expandIconPosition}
-        items={items}
-      />
+      >
+        <CreateEmployeeForm />
+      </Collapse>
       </Modal>
     </>
   );
