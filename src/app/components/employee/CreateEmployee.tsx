@@ -2,7 +2,8 @@
 import { SettingOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import type { CollapseProps } from 'antd';
-import { Collapse, Select } from 'antd';
+import { Collapse, Modal, Select } from 'antd';
+import { CreateEmployeeProps } from './EmployeeType';
 
 const { Option } = Select;
 
@@ -14,13 +15,10 @@ const text = `
 
 type ExpandIconPosition = 'start' | 'end';
 
-function CreateEmployee () {
+function CreateEmployee ({visible, title, onCancel}:CreateEmployeeProps) {
   const [expandIconPosition, setExpandIconPosition] = useState<ExpandIconPosition>('start');
 
-  const onPositionChange = (newExpandIconPosition: ExpandIconPosition) => {
-    setExpandIconPosition(newExpandIconPosition);
-  };
-
+  
   const onChange = (key: string | string[]) => {
     console.log(key);
   };
@@ -28,7 +26,6 @@ function CreateEmployee () {
   const genExtra = () => (
     <SettingOutlined
       onClick={(event) => {
-        // If you don't want click extra trigger collapse, you can prevent this:
         event.stopPropagation();
       }}
     />
@@ -57,18 +54,18 @@ function CreateEmployee () {
 
   return (
     <>
+      <Modal 
+      title={title}
+      open={visible}
+      onCancel={onCancel}
+      >
       <Collapse
         defaultActiveKey={['1']}
         onChange={onChange}
         expandIconPosition={expandIconPosition}
         items={items}
       />
-      <br />
-      <span>Expand Icon Position: </span>
-      <Select value={expandIconPosition} style={{ margin: '0 8px' }} onChange={onPositionChange}>
-        <Option value="start">start</Option>
-        <Option value="end">end</Option>
-      </Select>
+      </Modal>
     </>
   );
 };
