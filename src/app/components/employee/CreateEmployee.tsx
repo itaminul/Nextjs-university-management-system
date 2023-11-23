@@ -56,6 +56,7 @@ function CreateEmployee ({visible, title, onCancel}:CreateEmployeeProps) {
   return (
     <>
       <Modal 
+      width="400"
       title={title}
       open={visible}
       onCancel={onCancel}
