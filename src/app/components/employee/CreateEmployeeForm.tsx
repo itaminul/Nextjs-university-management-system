@@ -82,7 +82,6 @@ function CreateEmployeeForm() {
           <input type="text" placeholder="Child Field 2" />
           {/* Add more fields for child data */}
         </Collapse>
-
         {/* Add more Collapse components for additional sections */}
       </div>
       {/* <Divider orientation="left">Percentage columns</Divider>
