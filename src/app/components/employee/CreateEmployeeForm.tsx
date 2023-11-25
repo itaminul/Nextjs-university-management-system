@@ -1,3 +1,4 @@
+
 import { Button, Col, Form, Input, Row, Select, Space } from "antd";
 import Collapse from "./Collapse";
 import { FiPlus, FiMinus } from 'react-icons/fi'; // Import custom icons
@@ -257,15 +258,7 @@ function CreateEmployeeForm() {
             </Space>
           </Form.Item>
       </Form> 
-
-      {/* Add more Collapse components for additional sections */}
-    </div>
-    {/* <Divider orientation="left">Percentage columns</Divider>
-    <Row>
-      <Col flex={3}>First</Col>
-      <Col flex={3}>Second</Col>
-    </Row>    */}
     </>
-  )
+  );
 }
 export default CreateEmployeeForm;
