@@ -8,7 +8,7 @@ import EmployeeTable from "./EmployeeTable";
 function Employee () {
     return(
       <>
-         <AdminLayout>
+      <AdminLayout>
          <EmployeeTable />         
       </AdminLayout>
     </>
