@@ -45,6 +45,30 @@ function CreateEmployeeForm() {
         perPostOfficeCode: values.perPostOfficeCode,
       }
 
+      interface BaseObject {
+        name: string;
+        age: number;
+      }
+      
+      const cn = {
+        name: newValue.firstName,
+        employeePresentAddress: [
+        {
+          presentPostOfficeCode: empPresentAddress.presentPostOfficeCode,
+          presentPSId: empPresentAddress.presentPSId
+        }
+        ],
+        employeePermanentAddress: [
+          {
+            pertPSId:empPermanentAddress.pertPSId,
+            perCityCor:empPermanentAddress.perCityCor,
+          }
+        ]
+      }
+      
+      console.log("value",cn);     
+
+
  }
 
   return(
