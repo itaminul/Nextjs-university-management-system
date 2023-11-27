@@ -1,16 +1,15 @@
-import { CreateEmployeeProps } from "@/app/components/employee/EmployeeType";
+import { CreateEmployeeProps, AllEmpInformation } from "@/app/components/employee/EmployeeType";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/`;
-export const EmployeeInformation = createApi({
-  reducerPath: '',
+export const employeeInformationApi = createApi({
+  reducerPath: 'EmployeeInformationApi',
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
   }),
   endpoints: (builder) => ({
-    getDepartmentSetup: builder.query<CreateEmployeeProps[], void>({
-      query: () => 'departmentSetup',
+    getEmployeeInformation: builder.query<CreateEmployeeProps[], void>({
+      query: () => 'employee',
       transformResponse: (response: any) => {
-        console.log('formattedData', response);
         const formattedData = response.results?.map((item: any) => ({
           id: item.id,
           firstName: item.firstName,
@@ -29,6 +28,17 @@ export const EmployeeInformation = createApi({
         }));
         return formattedData;
       },
+      
     }),
+    createEmployeeInformation: builder.mutation<AllEmpInformation, Partial<AllEmpInformation>>({
+      query: (data) => ({
+        url: 'employee',
+        method: 'POST',
+        body: data
+
+      })
+    })
   })
 })
+
+export const { useGetEmployeeInformationQuery,useCreateEmployeeInformationMutation} = employeeInformationApi;
