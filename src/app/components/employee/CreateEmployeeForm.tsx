@@ -7,67 +7,86 @@ import { Departments } from "../setup/department/CreateDepartmentType";
 import { useGetOrgSetupQuery } from "@/services/setup/OrganizationSetupApi";
 import { Organizations } from "../setup/organization/OrganizationDataType";
 import { Employees, CreateEmployeeProps, AllEmpInformation } from "./EmployeeType";
+import { useCreateEmployeeInformationMutation } from "@/services/employeeInformationServiceApi";
 function CreateEmployeeForm() {
 
  const{ data: departmentData } = useGetDepartmentSetupQuery();
  const {data: organizationData} = useGetOrgSetupQuery();
+ const [createEmployee ] = useCreateEmployeeInformationMutation();
 
  const onFinish = async(values:AllEmpInformation) => {
-      const newValue = {
-        firstName: values.firstName,
-        middleName: values.middleName,
-        fullName: values.fullName,
-        phone: values.phone,
-        mobileOne: values.mobileOne,
-        mobileTwo: values.mobileTwo,
-        emergencyMobile: values.emergencyMobile,
-        officeEmail: values.officeEmail,
-        personalEmail: values.personalEmail,
-        departmentId: values.departmentId,
-        religionId: values.religionId,
-      }
-
-      const empPresentAddress = {
-        presentPostOfficeCode: values.presentPostOfficeCode,
-        presentPSId: values.presentPSId,
-        presentCityCor: values.presentCityCor,
-        presentWord: values.presentWord,
-        presentVillRoad: values.presentVillRoad,
-      }
-
-      const empPermanentAddress = {
-        pertPSId: values.pertPSId,
-        perCityCor: values.perCityCor,
-        perWord: values.perWord,
-        perWordNo: values.perWordNo,
-        perVillRoad: values.perVillRoad,
-        perBasHolding: values.perBasHolding,
-        perPostOffice: values.perPostOffice,
-        perPostOfficeCode: values.perPostOfficeCode,
-      }
-
-      interface BaseObject {
-        name: string;
-        age: number;
-      }
-      
-      const cn = {
-        name: newValue.firstName,
-        employeePresentAddress: [
-        {
-          presentPostOfficeCode: empPresentAddress.presentPostOfficeCode,
-          presentPSId: empPresentAddress.presentPSId
+      try {
+        const newValue = {
+          firstName: values.firstName,
+          middleName: values.middleName,
+          lastName: values.lastName,
+          fullName: values.fullName,
+          phone: values.phone,
+          mobileOne: values.mobileOne,
+          mobileTwo: values.mobileTwo,
+          emergencyMobile: values.emergencyMobile,
+          officeEmail: values.officeEmail,
+          personalEmail: values.personalEmail,
+          departmentId: values.departmentId,
+          religionId: values.religionId,
         }
-        ],
-        employeePermanentAddress: [
+  
+        const empPresentAddress = {
+          presentPostOfficeCode: values.presentPostOfficeCode,
+          presentPSId: values.presentPSId,
+          presentCityCor: values.presentCityCor,
+          presentWord: values.presentWord,
+          presentVillRoad: values.presentVillRoad,
+        }
+  
+        const empPermanentAddress = {
+          pertPSId: values.pertPSId,
+          perCityCor: values.perCityCor,
+          perWord: values.perWord,
+          perWordNo: values.perWordNo,
+          perVillRoad: values.perVillRoad,
+          perBasHolding: values.perBasHolding,
+          perPostOffice: values.perPostOffice,
+          perPostOfficeCode: values.perPostOfficeCode,
+        }
+  
+  
+        const newEmp = {
+          firstName: newValue.firstName,
+          middleName: newValue.middleName,
+          lastName: newValue.lastName,          
+          fullName: newValue.fullName,
+          phone: newValue.phone,
+          mobileOne: newValue.mobileOne,
+          mobileTwo: newValue.mobileTwo,
+          emergencyMobile: newValue.emergencyMobile,
+          officeEmail: newValue.officeEmail,
+          personalEmail: newValue.personalEmail,
+          departmentId: newValue.departmentId,
+          religionId: newValue.religionId,
+          employeePresentAddress: [
           {
-            pertPSId:empPermanentAddress.pertPSId,
-            perCityCor:empPermanentAddress.perCityCor,
+            presentPostOfficeCode: empPresentAddress.presentPostOfficeCode,
+            presentPSId: empPresentAddress.presentPSId
           }
-        ]
-      }
+          ],
+          employeePermanentAddress: [
+            {
+              pertPSId:empPermanentAddress.pertPSId,
+              perCityCor:empPermanentAddress.perCityCor,
+            }
+          ]
+        }
+        
+
+        await createEmployee(newEmp);
       
-      console.log("value",cn);     
+        console.log("value",newEmp); 
+      } catch (error) {
+        
+      }
+
+    
 
 
  }
@@ -102,6 +121,14 @@ function CreateEmployeeForm() {
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
           <Input />
+        </Form.Item>
+
+        <Form.Item
+        label="lastName"
+        name="lastName"
+        >
+          <Input />
+          
         </Form.Item>
         <Form.Item
         label="fullName"

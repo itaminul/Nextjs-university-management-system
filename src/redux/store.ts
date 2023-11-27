@@ -5,20 +5,22 @@ import authReducer from '../redux/features/authSlice';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { departmentSetupApi } from '../services/setup/departmentSetupApi';
 import { organizationSetupApi } from '../services/setup/OrganizationSetupApi'
-
+import { employeeInformationApi } from '../services/employeeInformationServiceApi';
 
 const rootReducer = combineReducers({
   breadcrumbs: breadcrumbReducer,
   modal: modalReducer,
   authReducer,
   [departmentSetupApi.reducerPath]: departmentSetupApi.reducer,
-  [organizationSetupApi.reducerPath]: organizationSetupApi.reducer
+  [organizationSetupApi.reducerPath]: organizationSetupApi.reducer,
+  [employeeInformationApi.reducerPath]: employeeInformationApi.reducer
 });
 
 const middleware = (getDefaultMiddleware: () => any[]) =>
   getDefaultMiddleware().concat([
     departmentSetupApi.middleware,
-    organizationSetupApi.middleware
+    organizationSetupApi.middleware,
+    employeeInformationApi.middleware
   ]);
 
 export const store = configureStore({
