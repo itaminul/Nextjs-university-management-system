@@ -17,7 +17,7 @@ export interface Employees {
 
 }
 
-export interface EmployeePermanentAddress {
+export interface empPresentAddress {
   empId: number; 
   pertPSId: number;
   perCityCor: number;
@@ -30,7 +30,7 @@ export interface EmployeePermanentAddress {
 
 }
 
-export interface EmployeePermanentAddress {
+export interface empPermanentAddress {
   presentPostOfficeCode: string;
   empId: number; 
   presentPSId: number;
@@ -39,7 +39,7 @@ export interface EmployeePermanentAddress {
   presentVillRoad: number
 }
 
-export interface AllEmpInformation extends Employees, EmployeePermanentAddress, EmployeePermanentAddress {
+export interface AllEmpInformation extends Employees, empPresentAddress, empPermanentAddress {
   firstName: string,
   middleName: string,
   lastName: string,
