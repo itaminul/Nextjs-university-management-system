@@ -1,12 +1,12 @@
 
 import { Button, Col, Form, Input, Row, Select, Space } from "antd";
 import Collapse from "./Collapse";
-import { FiPlus, FiMinus } from 'react-icons/fi'; // Import custom icons
+import { FiPlus, FiMinus } from 'react-icons/fi'; 
 import { useGetDepartmentSetupQuery  } from "@/services/setup/departmentSetupApi";
 import { Departments } from "../setup/department/CreateDepartmentType";
 import { useGetOrgSetupQuery } from "@/services/setup/OrganizationSetupApi";
 import { Organizations } from "../setup/organization/OrganizationDataType";
-import { Employees, CreateEmployeeProps, AllEmpInformation } from "./EmployeeType";
+import {  AllEmpInformation } from "./EmployeeType";
 import { useCreateEmployeeInformationMutation } from "@/services/employeeInformationServiceApi";
 function CreateEmployeeForm() {
 
@@ -16,7 +16,7 @@ function CreateEmployeeForm() {
 
  const onFinish = async(values:AllEmpInformation) => {
       try {
-        const newValue = {
+        const getValue = {
           firstName: values.firstName,
           middleName: values.middleName,
           lastName: values.lastName,
@@ -52,43 +52,46 @@ function CreateEmployeeForm() {
   
   
         const newEmp = {
-          firstName: newValue.firstName,
-          middleName: newValue.middleName,
-          lastName: newValue.lastName,          
-          fullName: newValue.fullName,
-          phone: newValue.phone,
-          mobileOne: newValue.mobileOne,
-          mobileTwo: newValue.mobileTwo,
-          emergencyMobile: newValue.emergencyMobile,
-          officeEmail: newValue.officeEmail,
-          personalEmail: newValue.personalEmail,
-          departmentId: newValue.departmentId,
-          religionId: newValue.religionId,
+          firstName: getValue.firstName,
+          middleName: getValue.middleName,
+          lastName: getValue.lastName,          
+          fullName: getValue.fullName,
+          phone: getValue.phone,
+          mobileOne: getValue.mobileOne,
+          mobileTwo: getValue.mobileTwo,
+          emergencyMobile: getValue.emergencyMobile,
+          officeEmail: getValue.officeEmail,
+          personalEmail: getValue.personalEmail,
+          departmentId: getValue.departmentId,
+          religionId: getValue.religionId,
           employeePresentAddress: [
           {
-            presentPostOfficeCode: empPresentAddress.presentPostOfficeCode,
-            presentPSId: empPresentAddress.presentPSId
+            presentPostOfficeCode: Number(empPresentAddress.presentPostOfficeCode),
+            presentPSId: Number(empPresentAddress.presentPSId),
+            presentWord: Number(empPresentAddress.presentWord),
+            presentVillRoad: Number(empPresentAddress.presentVillRoad),
+           
           }
           ],
           employeePermanentAddress: [
             {
-              pertPSId:empPermanentAddress.pertPSId,
-              perCityCor:empPermanentAddress.perCityCor,
+              pertPSId:Number(empPermanentAddress.pertPSId),
+              perCityCor:Number(empPermanentAddress.perCityCor),
+              perWord: Number(empPermanentAddress.perWord),
+              perWordNo: Number(empPermanentAddress.perWordNo),
+              perVillRoad: Number(empPermanentAddress.perVillRoad),
+              perBasHolding: Number(empPermanentAddress.perBasHolding),
+              perPostOffice: Number(empPermanentAddress.perPostOffice),
+              perPostOfficeCode: Number(empPermanentAddress.perPostOfficeCode)
+              
             }
           ]
-        }
-        
+        }       
 
         await createEmployee(newEmp);
-      
-        console.log("value",newEmp); 
       } catch (error) {
         
-      }
-
-    
-
-
+      } 
  }
 
   return(
@@ -253,6 +256,15 @@ function CreateEmployeeForm() {
         >
           <Input />
         </Form.Item>  
+
+        <Form.Item
+        label="presentPostOfficeCode"
+        name="presentPostOfficeCode"
+        >
+          <Input />
+        </Form.Item>  
+        
+
         
         </Col>
           </Row> 
@@ -267,14 +279,14 @@ function CreateEmployeeForm() {
           <Row>
           <Col flex={3}>
       <Form.Item
-        label="pertPSId"
+        label="Police station"
         name="pertPSId"
         >
           <Input />
         </Form.Item>
 
          <Form.Item
-        label="perCityCor"
+        label="City Corporation"
         name="perCityCor"
         >
           <Input />
@@ -284,18 +296,25 @@ function CreateEmployeeForm() {
        <Col style={{marginLeft: '10px'}} flex={3}>
           
        <Form.Item
-        label="perWord"
+        label="Word"
         name="perWord"
         >
           <Input />
         </Form.Item>
 
          <Form.Item
-        label="perWordNo"
+        label="Word No"
         name="perWordNo"
         >
           <Input />
         </Form.Item>  
+
+        <Form.Item
+        label="Post Office Code"
+        name="perPostOfficeCode"
+        >
+          <Input />
+        </Form.Item>          
         
         </Col>
           </Row> 
