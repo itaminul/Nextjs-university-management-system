@@ -1,5 +1,6 @@
 import { Modal } from "antd";
 import { CreateEmployeeProps } from "./EmployeeType";
+import EditEmployeeForm from "./EditEmployeeForm";
 
 function EditEmployee ({title, visible, onCancel}: CreateEmployeeProps) {
   return(
@@ -9,7 +10,7 @@ function EditEmployee ({title, visible, onCancel}: CreateEmployeeProps) {
       open={visible}
       onCancel={onCancel}
       >
-
+        <EditEmployeeForm title="Update Employee" visible={visible} onCancle={onCancel} />
       </Modal>
     </>
   )
