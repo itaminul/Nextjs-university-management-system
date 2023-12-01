@@ -10,7 +10,7 @@ function EditEmployee ({title, visible, onCancel}: CreateEmployeeProps) {
       open={visible}
       onCancel={onCancel}
       >
-        <EditEmployeeForm title="Update Employee" visible={visible} onCancle={onCancel} />
+        <EditEmployeeForm title="Update Employee" visible={visible} onCancel={onCancel} />
       </Modal>
     </>
   )
