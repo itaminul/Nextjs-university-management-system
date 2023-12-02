@@ -22,10 +22,14 @@ export const employeeInformationApi = createApi({
           officeEmail: item.officeEmail,
           personalEmail: item.personalEmail,
           departmentId: item.departmentId,
+          designationId: item.designationId,
           religionId: item.religionId,
           orgId: item.orgId,
           activeStatus: item.activeStatus,
+          empPresentAdd: item.employeePresentAddress[0],
+          empPermanentAdd: item.employeePermanentAddress
         }));
+        console.log("formattedData", formattedData);
         return formattedData;
       },
       
@@ -37,8 +41,20 @@ export const employeeInformationApi = createApi({
         body: data
 
       })
+    }),
+    updateEmployeeInformation: builder.mutation<void, {id: number}>({
+      query: (data) => ({
+          url: `/employee/${data.id}`,
+          method: 'PATCH',
+          body: data
+        }
+      )
     })
   })
 })
 
-export const { useGetEmployeeInformationQuery,useCreateEmployeeInformationMutation} = employeeInformationApi;
+export const {
+   useGetEmployeeInformationQuery,
+   useCreateEmployeeInformationMutation,
+   useUpdateEmployeeInformationMutation
+  } = employeeInformationApi;

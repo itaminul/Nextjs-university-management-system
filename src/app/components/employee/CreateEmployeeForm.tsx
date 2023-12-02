@@ -183,7 +183,7 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
                     ))}
                   </Select>
                 </Form.Item>
-                <Form.Item label="religionId" name="religionId">
+                <Form.Item label="Organization" name="orgId">
                   <Select>
                     <Select value="default">Select and option</Select>
                     {organizationData?.map((option: Organizations) => (

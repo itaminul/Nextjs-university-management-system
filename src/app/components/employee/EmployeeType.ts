@@ -76,6 +76,7 @@ export interface CreateEmployeeProps {
   visible: boolean;
   title: string;
   onCancel: () => void;
+  initialValues?:any;
 
 }
 
