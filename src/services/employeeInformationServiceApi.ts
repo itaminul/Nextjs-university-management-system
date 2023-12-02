@@ -6,6 +6,7 @@ export const employeeInformationApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
   }),
+  
   endpoints: (builder) => ({
     getEmployeeInformation: builder.query<CreateEmployeeProps[], void>({
       query: () => 'employee',

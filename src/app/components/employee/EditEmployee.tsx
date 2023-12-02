@@ -2,6 +2,7 @@ import { Modal } from "antd";
 import { CreateEmployeeProps } from "./EmployeeType";
 import EditEmployeeForm from "./EditEmployeeForm";
 
+
 function EditEmployee ({title, visible, onCancel, initialValues}: CreateEmployeeProps) {
   return(
     <>

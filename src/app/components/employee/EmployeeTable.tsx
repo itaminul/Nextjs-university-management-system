@@ -61,6 +61,7 @@ const columns: ColumnsType<DataType> = [
     setSelectedEmployee(records);
     setEditEmployeeModalVisible(true);
   }
+  
   return (
     <>
       <Button style={{float: 'right'}} onClick={handleCreate}>Add New</Button>
