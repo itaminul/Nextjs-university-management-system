@@ -1,98 +1,18 @@
+import { Button, Col, Form, Input, Row, Select, Space, message } from 'antd';
+import Collapse from './Collapse';
+import { FiPlus, FiMinus } from 'react-icons/fi';
+import { CreateEmployeeProps } from './EmployeeType';
+import { useGetDepartmentSetupQuery } from '@/services/setup/departmentSetupApi';
+import { useGetOrgSetupQuery } from '@/services/setup/OrganizationSetupApi';
+import { Departments } from '../setup/department/CreateDepartmentType';
+import { Organizations } from '../setup/organization/OrganizationDataType';
 
-import { Button, Col, Form, Input, Row, Select, Space, message } from "antd";
-import Collapse from "./Collapse";
-import { FiPlus, FiMinus } from 'react-icons/fi'; 
-import { useGetDepartmentSetupQuery  } from "@/services/setup/departmentSetupApi";
-import { Departments } from "../setup/department/CreateDepartmentType";
-import { useGetOrgSetupQuery } from "@/services/setup/OrganizationSetupApi";
-import { Organizations } from "../setup/organization/OrganizationDataType";
-import { CreateEmployeeProps, AllEmpInformation } from "./EmployeeType";
-import { useCreateEmployeeInformationMutation } from "@/services/employeeInformationServiceApi";
-function CreateEmployeeForm({ onCancel }: CreateEmployeeProps) {
-  const { data: departmentData } = useGetDepartmentSetupQuery();
-  const { data: organizationData } = useGetOrgSetupQuery();
-  const [createEmployee] = useCreateEmployeeInformationMutation();
+function EditEmployeeForm({ title, visible, onCancel }: CreateEmployeeProps) {
+    const { data: departmentData } = useGetDepartmentSetupQuery();
+    const { data: organizationData } = useGetOrgSetupQuery();
+  const onFinish = () => {
 
-  const onFinish = async (values: AllEmpInformation) => {
-    try {
-      const getValue = {
-        firstName: values.firstName,
-        middleName: values.middleName,
-        lastName: values.lastName,
-        fullName: values.fullName,
-        phone: values.phone,
-        mobileOne: values.mobileOne,
-        mobileTwo: values.mobileTwo,
-        emergencyMobile: values.emergencyMobile,
-        officeEmail: values.officeEmail,
-        personalEmail: values.personalEmail,
-        departmentId: values.departmentId,
-        religionId: values.religionId,
-      };
-      const getEmpPresentAddress = {
-        presentPostOfficeCode: values.presentPostOfficeCode,
-        presentPSId: values.presentPSId,
-        presentCityCor: values.presentCityCor,
-        presentWord: values.presentWord,
-        presentVillRoad: values.presentVillRoad,
-      };
-      const getEmpPermanentAddress = {
-        pertPSId: values.pertPSId,
-        perCityCor: values.perCityCor,
-        perWord: values.perWord,
-        perWordNo: values.perWordNo,
-        perVillRoad: values.perVillRoad,
-        perBasHolding: values.perBasHolding,
-        perPostOffice: values.perPostOffice,
-        perPostOfficeCode: values.perPostOfficeCode,
-      };
-      const formateImployeeInformation = {
-        firstName: getValue.firstName,
-        middleName: getValue.middleName,
-        lastName: getValue.lastName,
-        fullName: getValue.fullName,
-        phone: getValue.phone,
-        mobileOne: getValue.mobileOne,
-        mobileTwo: getValue.mobileTwo,
-        emergencyMobile: getValue.emergencyMobile,
-        officeEmail: getValue.officeEmail,
-        personalEmail: getValue.personalEmail,
-        departmentId: getValue.departmentId,
-        religionId: getValue.religionId,
-        employeePresentAddress: [
-          {
-            presentPostOfficeCode: Number(
-              getEmpPresentAddress.presentPostOfficeCode,
-            ),
-            presentPSId: Number(getEmpPresentAddress.presentPSId),
-            presentWord: Number(getEmpPresentAddress.presentWord),
-            presentVillRoad: Number(getEmpPresentAddress.presentVillRoad),
-          },
-        ],
-        employeePermanentAddress: [
-          {
-            pertPSId: Number(getEmpPermanentAddress.pertPSId),
-            perCityCor: Number(getEmpPermanentAddress.perCityCor),
-            perWord: Number(getEmpPermanentAddress.perWord),
-            perWordNo: Number(getEmpPermanentAddress.perWordNo),
-            perVillRoad: Number(getEmpPermanentAddress.perVillRoad),
-            perBasHolding: Number(getEmpPermanentAddress.perBasHolding),
-            perPostOffice: Number(getEmpPermanentAddress.perPostOffice),
-            perPostOfficeCode: Number(getEmpPermanentAddress.perPostOfficeCode),
-          },
-        ],
-      };
-
-      await createEmployee(formateImployeeInformation);
-      message.success('Insert successully')
-      setTimeout(() => {
-        onCancel();
-      }, 2000);
-    } catch (error) {
-      console.log('error', error);
-    }
-  };
-
+  }
   return (
     <>
       <div>
@@ -271,4 +191,4 @@ function CreateEmployeeForm({ onCancel }: CreateEmployeeProps) {
     </>
   );
 }
-export default CreateEmployeeForm;
+export default EditEmployeeForm;
