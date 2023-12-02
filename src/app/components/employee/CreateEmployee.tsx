@@ -3,18 +3,13 @@ import React, { useState } from 'react';
 import { Collapse, Modal } from 'antd';
 import { CreateEmployeeProps } from './EmployeeType';
 import CreateEmployeeForm from './CreateEmployeeForm';
-
-
 type ExpandIconPosition = 'start' | 'end';
 
 function CreateEmployee ({visible, title, onCancel}:CreateEmployeeProps) {
   const [expandIconPosition, setExpandIconPosition] = useState<ExpandIconPosition>('start');
-  
-  const onChange = (key: string | string[]) => {
+    const onChange = (key: string | string[]) => {
     console.log(key);
   };
-
-
   return (
     <>
       <Modal 
@@ -30,8 +25,6 @@ function CreateEmployee ({visible, title, onCancel}:CreateEmployeeProps) {
         
       >
         <CreateEmployeeForm />
-
-
       </Collapse>
       </Modal>
     </>
