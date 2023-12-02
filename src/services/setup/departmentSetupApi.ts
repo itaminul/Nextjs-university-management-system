@@ -1,7 +1,6 @@
 import { Departments } from "@/app/components/setup/department/CreateDepartmentType";
 import { createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/`;
-console.log('BASE_URL', BASE_URL);
 const accessToken = localStorage.getItem('accessToken');
 export const departmentSetupApi = createApi({
   reducerPath: 'departmentSetupApi',
@@ -18,7 +17,6 @@ export const departmentSetupApi = createApi({
     getDepartmentSetup: builder.query<Departments[], void>({
       query: () => 'departmentSetup',
       transformResponse: (response: any) => {
-        console.log('formattedData', response);
         const formattedData = response.results?.map((item: any) => ({
           id: item.id,
           departmentName: item.departmentName,
