@@ -1,16 +1,23 @@
+import { Button, Col, Form, Input, Row, Select, Space, message } from 'antd';
+import Collapse from './Collapse';
+import { FiPlus, FiMinus } from 'react-icons/fi';
+import { useGetDepartmentSetupQuery } from '@/services/setup/departmentSetupApi';
+import { Departments } from '../setup/department/CreateDepartmentType';
+import { useGetOrgSetupQuery } from '@/services/setup/OrganizationSetupApi';
+import { Organizations } from '../setup/organization/OrganizationDataType';
+import { AllEmpInformation, CreateEmployeeProps } from './EmployeeType';
+import { useCreateEmployeeInformationMutation } from '@/services/employeeInformationServiceApi';
+import { useGetDesignationSetupQuery } from '@/services/setup/designationSetupApi';
+import { useGetPoliceStationApiDataQuery } from '@/services/setup/policeStationApi';
+import { Designation } from '../setup/designation/DesignationType';
+import { PoliceStation } from '../setup/policeStation/policeStationType';
 
-import { Button, Col, Form, Input, Row, Select, Space, message } from "antd";
-import Collapse from "./Collapse";
-import { FiPlus, FiMinus } from 'react-icons/fi'; 
-import { useGetDepartmentSetupQuery  } from "@/services/setup/departmentSetupApi";
-import { Departments } from "../setup/department/CreateDepartmentType";
-import { useGetOrgSetupQuery } from "@/services/setup/OrganizationSetupApi";
-import { Organizations } from "../setup/organization/OrganizationDataType";
-import { CreateEmployeeProps, AllEmpInformation } from "./EmployeeType";
-import { useCreateEmployeeInformationMutation } from "@/services/employeeInformationServiceApi";
-function CreateEmployeeForm({ onCancel }: CreateEmployeeProps) {
+
+function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
   const { data: departmentData } = useGetDepartmentSetupQuery();
   const { data: organizationData } = useGetOrgSetupQuery();
+  const { data: designationData } = useGetDesignationSetupQuery();
+  const { data: policeStation } = useGetPoliceStationApiDataQuery();
   const [createEmployee] = useCreateEmployeeInformationMutation();
 
   const onFinish = async (values: AllEmpInformation) => {
@@ -27,16 +34,17 @@ function CreateEmployeeForm({ onCancel }: CreateEmployeeProps) {
         officeEmail: values.officeEmail,
         personalEmail: values.personalEmail,
         departmentId: values.departmentId,
+        designationId: values.designationId,
         religionId: values.religionId,
       };
-      const getEmpPresentAddress = {
+      const empPresentAddress = {
         presentPostOfficeCode: values.presentPostOfficeCode,
         presentPSId: values.presentPSId,
         presentCityCor: values.presentCityCor,
         presentWord: values.presentWord,
         presentVillRoad: values.presentVillRoad,
       };
-      const getEmpPermanentAddress = {
+      const empPermanentAddress = {
         pertPSId: values.pertPSId,
         perCityCor: values.perCityCor,
         perWord: values.perWord,
@@ -46,7 +54,8 @@ function CreateEmployeeForm({ onCancel }: CreateEmployeeProps) {
         perPostOffice: values.perPostOffice,
         perPostOfficeCode: values.perPostOfficeCode,
       };
-      const formateImployeeInformation = {
+
+      const newEmp = {
         firstName: getValue.firstName,
         middleName: getValue.middleName,
         lastName: getValue.lastName,
@@ -58,39 +67,37 @@ function CreateEmployeeForm({ onCancel }: CreateEmployeeProps) {
         officeEmail: getValue.officeEmail,
         personalEmail: getValue.personalEmail,
         departmentId: getValue.departmentId,
+        designationId: getValue.designationId,
         religionId: getValue.religionId,
         employeePresentAddress: [
           {
             presentPostOfficeCode: Number(
-              getEmpPresentAddress.presentPostOfficeCode,
+              empPresentAddress.presentPostOfficeCode,
             ),
-            presentPSId: Number(getEmpPresentAddress.presentPSId),
-            presentWord: Number(getEmpPresentAddress.presentWord),
-            presentVillRoad: Number(getEmpPresentAddress.presentVillRoad),
+            presentPSId: Number(empPresentAddress.presentPSId),
+            presentWord: Number(empPresentAddress.presentWord),
+            presentVillRoad: Number(empPresentAddress.presentVillRoad),
           },
         ],
         employeePermanentAddress: [
           {
-            pertPSId: Number(getEmpPermanentAddress.pertPSId),
-            perCityCor: Number(getEmpPermanentAddress.perCityCor),
-            perWord: Number(getEmpPermanentAddress.perWord),
-            perWordNo: Number(getEmpPermanentAddress.perWordNo),
-            perVillRoad: Number(getEmpPermanentAddress.perVillRoad),
-            perBasHolding: Number(getEmpPermanentAddress.perBasHolding),
-            perPostOffice: Number(getEmpPermanentAddress.perPostOffice),
-            perPostOfficeCode: Number(getEmpPermanentAddress.perPostOfficeCode),
+            pertPSId: Number(empPermanentAddress.pertPSId),
+            perCityCor: Number(empPermanentAddress.perCityCor),
+            perWord: Number(empPermanentAddress.perWord),
+            perWordNo: Number(empPermanentAddress.perWordNo),
+            perVillRoad: Number(empPermanentAddress.perVillRoad),
+            perBasHolding: Number(empPermanentAddress.perBasHolding),
+            perPostOffice: Number(empPermanentAddress.perPostOffice),
+            perPostOfficeCode: Number(empPermanentAddress.perPostOfficeCode),
           },
         ],
       };
-
-      await createEmployee(formateImployeeInformation);
-      message.success('Insert successully')
+      await createEmployee(newEmp);
+      message.success('Created Successfully');
       setTimeout(() => {
         onCancel();
-      }, 2000);
-    } catch (error) {
-      console.log('error', error);
-    }
+      }, 2000)
+    } catch (error) {}
   };
 
   return (
@@ -153,7 +160,7 @@ function CreateEmployeeForm({ onCancel }: CreateEmployeeProps) {
                 </Form.Item>
                 <Form.Item
                   name="departmentId"
-                  label="Department Name"
+                  label="Department"
                   rules={[{ required: true }]}
                 >
                   <Select>
@@ -167,10 +174,17 @@ function CreateEmployeeForm({ onCancel }: CreateEmployeeProps) {
                     ))}
                   </Select>
                 </Form.Item>
-                <Form.Item label="designationId" name="designationId">
-                  <Input />
+                <Form.Item label="Designation" name="designationId">
+                  <Select>
+                    <Select.Option value="">Select an option</Select.Option>
+                    {designationData?.map((option: Designation) => (
+                      <Select.Option key={option.id} value={option.id}>
+                        {option.designationName}
+                      </Select.Option>
+                    ))}
+                  </Select>
                 </Form.Item>
-                <Form.Item label="religionId" name="religionId">
+                <Form.Item label="Organization" name="orgId">
                   <Select>
                     <Select value="default">Select and option</Select>
                     {organizationData?.map((option: Organizations) => (
@@ -201,7 +215,14 @@ function CreateEmployeeForm({ onCancel }: CreateEmployeeProps) {
             <Row>
               <Col flex={3}>
                 <Form.Item label="presentPSId" name="presentPSId">
-                  <Input />
+                  <Select>
+                    <Select.Option>Select an option</Select.Option>
+                    {policeStation?.map((item:PoliceStation ) => (
+                      <Select.Option key={item.id} value={item.id}>
+                        {item.thanaName}
+                      </Select.Option>
+                    ))}
+                  </Select>
                 </Form.Item>
 
                 <Form.Item label="presentCityCor" name="presentCityCor">
@@ -235,7 +256,14 @@ function CreateEmployeeForm({ onCancel }: CreateEmployeeProps) {
             <Row>
               <Col flex={3}>
                 <Form.Item label="Police station" name="pertPSId">
-                  <Input />
+                  <Select>
+                    <Select.Option>Select an option</Select.Option>
+                    {policeStation?.map((item: PoliceStation) => (
+                      <Select.Option key={item.id} value={item.id}>
+                        {item.thanaName}
+                      </Select.Option>
+                    ))}
+                  </Select>
                 </Form.Item>
 
                 <Form.Item label="City Corporation" name="perCityCor">
@@ -267,7 +295,14 @@ function CreateEmployeeForm({ onCancel }: CreateEmployeeProps) {
             </Space>
           </Form.Item>
         </Form>
+
+        {/* Add more Collapse components for additional sections */}
       </div>
+      {/* <Divider orientation="left">Percentage columns</Divider>
+    <Row>
+      <Col flex={3}>First</Col>
+      <Col flex={3}>Second</Col>
+    </Row>    */}
     </>
   );
 }

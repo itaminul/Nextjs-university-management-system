@@ -72,10 +72,12 @@ export interface AllEmpInformation extends Employees, empPresentAddress, empPerm
   perPostOfficeCode: number;
 }
 
+
 export interface CreateEmployeeProps {
   visible: boolean;
   title: string;
   onCancel: () => void;
+  initialValues?:any;
 
 }
 

@@ -1,9 +1,9 @@
 export interface Designation {
-  id: number,
-  designationName: string,
-  designationDes: string,
-  orgId           : number,
-  serialNo        : number,
+  id: number;
+  designationName: string;
+  designationDes: string;
+  orgId: number;
+  serialNo: number;
 }
 export interface DesignationProps {
   title: string;

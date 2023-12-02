@@ -6,8 +6,8 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { departmentSetupApi } from '../services/setup/departmentSetupApi';
 import { organizationSetupApi } from '../services/setup/OrganizationSetupApi'
 import { employeeInformationApi } from '../services/employeeInformationServiceApi';
-import { designationSetupApi } from '../services/setup/designationSetupApi';
-import { policeStationApi } from '../services/setup/policeStationApi';
+import { designationSetupApi } from '@/services/setup/designationSetupApi';
+import { policeStationApi } from '@/services/setup/policeStationApi';
 const rootReducer = combineReducers({
   breadcrumbs: breadcrumbReducer,
   modal: modalReducer,
