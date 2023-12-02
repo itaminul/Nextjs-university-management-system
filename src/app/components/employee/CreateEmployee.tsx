@@ -5,13 +5,9 @@ import { CreateEmployeeProps } from './EmployeeType';
 import CreateEmployeeForm from './CreateEmployeeForm';
 type ExpandIconPosition = 'start' | 'end';
 function CreateEmployee ({visible, title, onCancel}:CreateEmployeeProps) {
-  const [expandIconPosition] = useState<ExpandIconPosition>('start');  
-  const onChange = (key: string | string[]) => {
-    console.log(key);
+  const [expandIconPosition, setExpandIconPosition] = useState<ExpandIconPosition>('start');
+    const onChange = (key: string | string[]) => {
   };
-
-
-  
   return (
     <>
       <Modal 
@@ -27,8 +23,6 @@ function CreateEmployee ({visible, title, onCancel}:CreateEmployeeProps) {
         
       >
         <CreateEmployeeForm onCancel={onCancel} visible={visible} title="Create Employee" />
-
-
       </Collapse>
       </Modal>
     </>

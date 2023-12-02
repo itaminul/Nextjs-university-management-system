@@ -16,8 +16,7 @@ const rootReducer = combineReducers({
   [organizationSetupApi.reducerPath]: organizationSetupApi.reducer,
   [employeeInformationApi.reducerPath]: employeeInformationApi.reducer,
   [designationSetupApi.reducerPath]: designationSetupApi.reducer,
-  [policeStationApi.reducerPath]: policeStationApi.reducer
-
+  [policeStationApi.reducerPath]: policeStationApi.reducer,
 });
 
 const middleware = (getDefaultMiddleware: () => any[]) =>

@@ -1,5 +1,5 @@
-import { Designation } from '@/app/components/setup/designation/DesignationType';
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
+import { Designation } from "@/app/components/setup/designation/DesignationType";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/`;
 export const designationSetupApi = createApi({
   reducerPath: 'designationSetupApi',
@@ -23,4 +23,3 @@ export const designationSetupApi = createApi({
   }),
 });
 
-export const { useGetDesignationSetupQuery } = designationSetupApi;

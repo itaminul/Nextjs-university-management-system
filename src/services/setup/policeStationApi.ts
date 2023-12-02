@@ -24,4 +24,3 @@ export const policeStationApi = createApi({
   }),
 });
 
-export const { useGetPoliceStationApiDataQuery } = policeStationApi;
