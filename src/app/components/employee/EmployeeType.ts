@@ -13,7 +13,8 @@ export interface Employees {
   departmentId: string,
   designationId: string,
   religionId: string,
-  bloodGroupId: string
+  bloodGroupId: string,
+  maritialStatus: boolean,
 
 }
 
@@ -55,6 +56,7 @@ export interface AllEmpInformation extends Employees, empPresentAddress, empPerm
   designationId: string,
   religionId: string,
   bloodGroupId: string,
+  maritialStatus: boolean,
   presentPostOfficeCode: string;
   empId: number; 
   presentPSId: number;
@@ -78,6 +80,7 @@ export interface CreateEmployeeProps {
   title: string;
   onCancel: () => void;
   initialValues?:any;
+  onRadioChange?: (value: boolean) => void;
 
 }
 
