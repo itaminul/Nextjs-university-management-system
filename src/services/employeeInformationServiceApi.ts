@@ -25,12 +25,19 @@ export const employeeInformationApi = createApi({
           departmentId: item.departmentId,
           designationId: item.designationId,
           religionId: item.religionId,
+          maritialStatus: item.maritialStatus,
           orgId: item.orgId,
           activeStatus: item.activeStatus,
-          empPresentAdd: item.employeePresentAddress[0],
-          empPermanentAdd: item.employeePermanentAddress
+          presentPSId: item.employeePresentAddress[0].presentPSId,
+          presentCityCor: item.employeePresentAddress[0].presentCityCor,
+          presentWord: item.employeePresentAddress[0].presentWord,
+          presentVillRoad: item.employeePresentAddress[0].presentVillRoad,
+          pertPSId: item.employeePermanentAddress[0].pertPSId,
+          perCityCor: item.employeePermanentAddress[0].perCityCor,
+          perWord: item.employeePermanentAddress[0].perWord,
+          perVillRoad: item.employeePermanentAddress[0].perVillRoad
         }));
-        console.log("formattedData", formattedData);
+        // console.log("formattedData", formattedData);
         return formattedData;
       },
       

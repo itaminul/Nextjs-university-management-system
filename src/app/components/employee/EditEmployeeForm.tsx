@@ -1,6 +1,5 @@
 import { Button, Col, Form, Input, Row, Select, Space, message } from 'antd';
 import Collapse from './Collapse';
-import type { RadioChangeEvent } from 'antd';
 import { Radio } from 'antd';
 import { FiPlus, FiMinus } from 'react-icons/fi';
 import { CreateEmployeeProps } from './EmployeeType';
@@ -9,16 +8,20 @@ import { useGetOrgSetupQuery } from '@/services/setup/OrganizationSetupApi';
 import { Departments } from '../setup/department/CreateDepartmentType';
 import { Organizations } from '../setup/organization/OrganizationDataType';
 import { useForm } from 'antd/es/form/Form';
-import { useEffect, useState } from 'react';
+import {useEffect, useState } from 'react';
 import { useGetDesignationSetupQuery } from '@/services/setup/designationSetupApi';
 import { Designation } from '../setup/designation/DesignationType';
-
+import { useGetPoliceStationApiDataQuery } from '@/services/setup/PoliceStationApi';
+import { PoliceStation } from '../setup/policeStation/policeStationType';
 
 function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmployeeProps) {
+ 
+  const [value, setValue] = useState<string>(initialValues.maritialStatus);
   const [form] = useForm();
     const { data: departmentData } = useGetDepartmentSetupQuery();
     const { data: organizationData } = useGetOrgSetupQuery();
     const { data: designations } = useGetDesignationSetupQuery();
+    const { data: policeStations } = useGetPoliceStationApiDataQuery();
 
     useEffect(() => {
       form.setFieldsValue({
@@ -34,17 +37,24 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
         personalEmail: initialValues?.personalEmail,
         departmentId: initialValues?.departmentId,
         designationId: initialValues?.designationId,
-        orgId: initialValues?.orgId
+        orgId: initialValues?.orgId,
+        maritialStatus: initialValues?.maritialStatus,
+        presentPSId: initialValues?.presentPSId,
+        presentCityCor:initialValues?.presentCityCor,
+        presentWord:initialValues?.presentWord,
+        presentVillRoad:initialValues?.presentVillRoad,
+        pertPSId: initialValues?.pertPSId,
+        perCityCor: initialValues?.perCityCor,
+        perWord: initialValues?.perWord,
+        perVillRoad: initialValues?.perVillRoad,
       })
     },[form, initialValues])
+
+
   const onFinish = () => {
 
   }
-  const [ maritalStatus, setMaritalStatus ] = useState('M')
-
-  const onChangeMaritalStatus = (e: RadioChangeEvent) => {
-    setMaritalStatus(e.target.value);
-  };
+  
   return (
     <>
       <div>
@@ -154,10 +164,10 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                     <Select.Option value={2}>B+</Select.Option>
                   </Select>
                 </Form.Item>
-                <Form.Item>
-                <Radio.Group onChange={onChangeMaritalStatus} value={value}>
+                <Form.Item label="Marital Status">
+                <Radio.Group  name="maritialStatus" defaultValue={initialValues?.maritialStatus.toString()}>
                 <Radio value="true">Married</Radio>
-                <Radio value="false">UnMarried</Radio>
+                <Radio value="false">Un Married</Radio>
               </Radio.Group>
                 </Form.Item>
               </Col>
@@ -172,10 +182,14 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
           >
             <Row>
               <Col flex={3}>
-                <Form.Item label="presentPSId" name="presentPSId">
-                  <Input />
+                <Form.Item label="Present Police Station" name="presentPSId">
+                  <Select defaultValue="presentPSId">
+                  <Select value="default">Select and option</Select>
+                    {policeStations?.map((option: PoliceStation) => (
+                      <Select.Option key={option.id} value={option.id}>{option.thanaName}</Select.Option>
+                    ))}
+                  </Select>
                 </Form.Item>
-
                 <Form.Item label="presentCityCor" name="presentCityCor">
                   <Input />
                 </Form.Item>
@@ -207,7 +221,12 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
             <Row>
               <Col flex={3}>
                 <Form.Item label="Police station" name="pertPSId">
-                  <Input />
+                  <Select defaultValue="pertPSId">
+                    <Select value="default">Select and option</Select>
+                    {policeStations?.map((option: PoliceStation) => (
+                      <Select.Option key={option.id} value={option.id}>{option.thanaName}</Select.Option>
+                    ))}
+                  </Select>
                 </Form.Item>
 
                 <Form.Item label="City Corporation" name="perCityCor">

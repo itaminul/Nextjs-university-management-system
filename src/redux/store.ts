@@ -1,13 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import modalReducer from '../redux/features/modalSlice'
+import modalReducer from '../redux/features/modalSlice';
 import breadcrumbReducer from '../redux/features/breadcrumbSlice';
 import authReducer from '../redux/features/authSlice';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { departmentSetupApi } from '../services/setup/departmentSetupApi';
-import { organizationSetupApi } from '../services/setup/OrganizationSetupApi'
+import { organizationSetupApi } from '../services/setup/OrganizationSetupApi';
 import { employeeInformationApi } from '../services/employeeInformationServiceApi';
 import { designationSetupApi } from '@/services/setup/designationSetupApi';
-import { policeStationApi } from '@/services/setup/policeStationApi';
+import { policeStationApi } from '@/services/setup/PoliceStationApi';
 const rootReducer = combineReducers({
   breadcrumbs: breadcrumbReducer,
   modal: modalReducer,
@@ -25,7 +25,7 @@ const middleware = (getDefaultMiddleware: () => any[]) =>
     organizationSetupApi.middleware,
     employeeInformationApi.middleware,
     designationSetupApi.middleware,
-    policeStationApi.middleware
+    policeStationApi.middleware,
   ]);
 
 export const store = configureStore({

@@ -23,3 +23,5 @@ export const designationSetupApi = createApi({
   }),
 });
 
+export const { useGetDesignationSetupQuery } = designationSetupApi;
+

@@ -1,3 +1,4 @@
+
 import { PoliceStation } from '@/app/components/setup/policeStation/policeStationType';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 const BASE_URL = `${process.env.NEXT_PUBLIC_API_URL}/api/`;
@@ -24,3 +25,4 @@ export const policeStationApi = createApi({
   }),
 });
 
+export const { useGetPoliceStationApiDataQuery } = policeStationApi;

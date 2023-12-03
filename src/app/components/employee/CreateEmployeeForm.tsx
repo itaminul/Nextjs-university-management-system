@@ -7,11 +7,10 @@ import { useGetOrgSetupQuery } from '@/services/setup/OrganizationSetupApi';
 import { Organizations } from '../setup/organization/OrganizationDataType';
 import { AllEmpInformation, CreateEmployeeProps } from './EmployeeType';
 import { useCreateEmployeeInformationMutation } from '@/services/employeeInformationServiceApi';
-import { useGetDesignationSetupQuery } from '@/services/setup/designationSetupApi';
-import { useGetPoliceStationApiDataQuery } from '@/services/setup/policeStationApi';
 import { Designation } from '../setup/designation/DesignationType';
 import { PoliceStation } from '../setup/policeStation/policeStationType';
-
+import { useGetDesignationSetupQuery } from '@/services/setup/designationSetupApi';
+import { useGetPoliceStationApiDataQuery } from '@/services/setup/PoliceStationApi';
 
 function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
   const { data: departmentData } = useGetDepartmentSetupQuery();
@@ -96,7 +95,7 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
       message.success('Created Successfully');
       setTimeout(() => {
         onCancel();
-      }, 2000)
+      }, 2000);
     } catch (error) {}
   };
 
@@ -217,7 +216,7 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
                 <Form.Item label="presentPSId" name="presentPSId">
                   <Select>
                     <Select.Option>Select an option</Select.Option>
-                    {policeStation?.map((item:PoliceStation ) => (
+                    {policeStation?.map((item: PoliceStation) => (
                       <Select.Option key={item.id} value={item.id}>
                         {item.thanaName}
                       </Select.Option>
