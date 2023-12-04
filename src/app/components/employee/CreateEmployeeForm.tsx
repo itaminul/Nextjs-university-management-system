@@ -35,6 +35,7 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
         departmentId: values.departmentId,
         designationId: values.designationId,
         religionId: values.religionId,
+        bloodGroupId: values.bloodGroupId
       };
       const empPresentAddress = {
         presentPostOfficeCode: values.presentPostOfficeCode,
@@ -68,6 +69,7 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
         departmentId: getValue.departmentId,
         designationId: getValue.designationId,
         religionId: getValue.religionId,
+        bloodGroupId: getValue.bloodGroupId,
         employeePresentAddress: [
           {
             presentPostOfficeCode: Number(

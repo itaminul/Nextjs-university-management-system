@@ -165,7 +165,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                   </Select>
                 </Form.Item>
                 <Form.Item label="Marital Status">
-                <Radio.Group  name="maritialStatus" defaultValue={initialValues?.maritialStatus.toString()}>
+                <Radio.Group  name="maritialStatus" defaultValue={initialValues?.maritialStatus}>
                 <Radio value="true">Married</Radio>
                 <Radio value="false">Un Married</Radio>
               </Radio.Group>
