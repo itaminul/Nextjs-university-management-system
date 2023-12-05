@@ -22,7 +22,17 @@ export const policeStationApi = createApi({
         return formattedData;
       },
     }),
+    createPoliceStation: builder.mutation<
+      PoliceStation,
+      Partial<PoliceStation>
+    >({
+      query: (data) => ({
+        url: 'employee',
+        method: 'POST',
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetPoliceStationApiDataQuery } = policeStationApi;
+export const { useGetPoliceStationApiDataQuery, useCreatePoliceStationMutation } = policeStationApi;
