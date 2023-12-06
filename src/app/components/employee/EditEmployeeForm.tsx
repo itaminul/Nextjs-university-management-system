@@ -248,6 +248,36 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
               </Col>
             </Row>
           </Collapse>
+
+          <Collapse
+            title="Education"
+            panelStyles={{}}
+            iconOpen={<FiMinus />}
+            iconClosed={<FiPlus />}
+          >
+            <Row>
+              <Col flex={3}>
+                
+                <Form.Item label="Degree" name="perCityCor">
+                  <Input />
+                </Form.Item>
+              </Col>
+              <Col style={{ marginLeft: '10px' }} flex={3}>
+                <Form.Item label="Board" name="perWord">
+                  <Input />
+                </Form.Item>
+
+                <Form.Item label="Result" name="perWordNo">
+                  <Input />
+                </Form.Item>
+
+                <Form.Item label="Passing Year" name="perPostOfficeCode">
+                  <Input />
+                </Form.Item>
+              </Col>
+            </Row>
+          </Collapse>
+
           <Form.Item>
             <Space>
               <div style={{ float: 'right' }}>
