@@ -1,0 +1,95 @@
+https://chat.openai.com/share/998292bb-fbcf-454f-b1f8-636209b590c0
+
+https://chat.openai.com/share/1c5f4b7d-04bc-43e9-9aa8-f3b051a523d7
+
+// Online Javascript Editor for free
+// Write, Edit and Run your Javascript code using JS Online Compiler
+
+function fac(num) {
+let result = 1;
+for (let i = 2; i <= num; i++) {
+result = num \* i;
+}
+return result;
+}
+let number = 5;
+let result = fac(5);
+console.log("fac", result);
+
+function fetchData() {
+return new Promise(resolve => {
+setTimeout(() => {
+resolve('data')
+}, 2000)
+})
+}
+fetchData().then(data => {
+//console.log(data);
+});
+
+console.log("start");
+setTimeout(() => {
+//console.log("End");
+}, 5000)
+
+function fibonacciWithLoop(n) {
+let fibSeries = [];
+for (let i = 0; i < n; i++) {
+if (i <= 1) {
+fibSeries.push(i);
+} else {
+fibSeries.push(fibSeries[i - 1] + fibSeries[i - 2]);
+}
+}
+return fibSeries;
+}
+let n = 10;
+let fiboSeries = fibonacciWithLoop(n);
+//console.log("fff", fiboSeries)
+function reverseArrayWithRecursion(arr) {
+if (arr.length === 0) {
+return [];
+} else {
+return [arr[arr.length - 1]].concat(reverseArrayWithRecursion(arr.slic(0, arr.length - 1)))
+}
+}
+function reverseFoLoop(arr) {
+let reversearray2 = [];
+for (let i = arr.length - 1; i >= 0; i--) {
+reversearray2.push(arr[i]);
+}
+return reversearray2;
+}
+let myArray4 = [1, 2, 3, 4, 5];
+let result2 = reverseFoLoop(myArray4);
+//console.log("result2", result2);
+function reverseArrayWithReduce(arr) {
+return arr.reduce((acc, curr) => [curr].concat(acc), []);
+}
+let myArray3 = [1, 2, 3, 4, 5];
+let reversed3 = reverseArrayWithReduce(myArray3);
+//console.log("reversed3", reversed3);
+function reverseArrayWithLoop(arr) {
+let reversedArr = [];
+for (var i = arr.length - 1; i >= 0; i--) {
+reversedArr.push(arr[i]);
+}
+return reversedArr;
+}
+let myArray2 = [1, 2, 3, 4, 5];
+let reversed = reverseArrayWithLoop(myArray2);
+//console.log("reversed", reversed);
+
+function reverseArray(arr) {
+let start = 0;
+let end = arr.length - 1;
+while (start < end) {
+let temp = arr[start];
+arr[end] = temp;
+start++;
+end--;
+}
+}
+let myArray = [1, 2, 3, 4, 5];
+reverseArray(myArray);
+//console.log("Welcome to Programiz!", myArray);

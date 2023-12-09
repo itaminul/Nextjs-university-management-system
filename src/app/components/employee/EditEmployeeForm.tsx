@@ -14,8 +14,7 @@ import { Designation } from '../setup/designation/DesignationType';
 import { useGetPoliceStationApiDataQuery } from '@/services/setup/PoliceStationApi';
 import { PoliceStation } from '../setup/policeStation/policeStationType';
 
-function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmployeeProps) {
- 
+function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmployeeProps) { 
   const [value, setValue] = useState<string>(initialValues.maritialStatus);
   const [form] = useForm();
     const { data: departmentData } = useGetDepartmentSetupQuery();
@@ -258,7 +257,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
             <Row>
               <Col flex={3}>
                 
-                <Form.Item label="Degree" name="perCityCor">
+                <Form.Item label="Degree" name="degreeId">
                   <Input />
                 </Form.Item>
               </Col>
@@ -267,7 +266,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                   <Input />
                 </Form.Item>
 
-                <Form.Item label="Result" name="perWordNo">
+                <Form.Item label="Result" name="result">
                   <Input />
                 </Form.Item>
 
