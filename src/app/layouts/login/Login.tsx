@@ -34,9 +34,9 @@ function Page() {
 
   const onFinish = async ({ username, password }: Credential) => {
     try {
-      console.log("user name", username);
+      console.log('user name', username);
       setLoading(true);
-      const response = await fetch(`http://192.168.0.84:4001/api/auth/loginuser`, {
+      const response = await fetch(`http://localhost:4001/api/auth/loginuser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ function Page() {
       //console.log('token', token);
       setTimeout(() => {
         setLoading(false);
-      //  localStorage.setItem('accessToken', token);
+        //  localStorage.setItem('accessToken', token);
         //localStorage.getItem('accessToken');
         //localStorage.setItem('isAuthenticated', 'true');
         redirect('/layouts/dashboard');

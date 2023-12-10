@@ -6,12 +6,12 @@ export const departmentSetupApi = createApi({
   reducerPath: 'departmentSetupApi',
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
-    prepareHeaders: (headers) => {
-      if (accessToken != null) {
-        headers.set('Authorization', `Bearer ${accessToken}`);
-      }
-      return headers;
-    },
+    // prepareHeaders: (headers) => {
+    //   if (accessToken != null) {
+    //     headers.set('Authorization', `Bearer ${accessToken}`);
+    //   }
+    //   return headers;
+    // },
   }),
   endpoints: (builder) => ({
     getDepartmentSetup: builder.query<Departments[], void>({
