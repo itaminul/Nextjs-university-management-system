@@ -20,8 +20,15 @@ export const designationSetupApi = createApi({
         return formattedData;
       },
     }),
+    createDesignation: builder.mutation<Designation, Partial<Designation>>({
+      query: (designationData) => ({
+        url: 'designationSetup',
+        method: 'POST',
+        body: designationData,
+      }),
+    }),
   }),
 });
 
-export const { useGetDesignationSetupQuery } = designationSetupApi;
+export const { useGetDesignationSetupQuery, useCreateDesignationMutation } = designationSetupApi;
 
