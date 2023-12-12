@@ -1,4 +1,5 @@
 export interface Employees {
+  id: number,
   firstName: string,
   middleName: string,
   lastName: string,
@@ -15,6 +16,7 @@ export interface Employees {
   religionId: string,
   bloodGroupId: string,
   maritialStatus: boolean,
+  genderId: number
 
 }
 
@@ -41,6 +43,7 @@ export interface empPermanentAddress {
 }
 
 export interface AllEmpInformation extends Employees, empPresentAddress, empPermanentAddress {
+  id: number,
   firstName: string,
   middleName: string,
   lastName: string,
@@ -81,6 +84,8 @@ export interface CreateEmployeeProps {
   onCancel: () => void;
   initialValues?:any;
   onRadioChange?: (value: boolean) => void;
+  onChange: (value: boolean) => void;
+  
 
 }
 
