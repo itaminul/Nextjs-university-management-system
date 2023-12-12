@@ -37,7 +37,6 @@ export const employeeInformationApi = createApi({
           perWord: item.employeePermanentAddress[0].perWord,
           perVillRoad: item.employeePermanentAddress[0].perVillRoad
         }));
-        // console.log("formattedData", formattedData);
         return formattedData;
       },
       

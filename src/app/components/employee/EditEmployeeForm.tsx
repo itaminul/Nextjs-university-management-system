@@ -1,8 +1,8 @@
-import { Button, Col, Form, Input, Row, Select, Space, message } from 'antd';
+import { Button, Checkbox, Col, Form, Input, Row, Select, Space, message } from 'antd';
 import Collapse from './Collapse';
 import { Radio } from 'antd';
 import { FiPlus, FiMinus } from 'react-icons/fi';
-import { CreateEmployeeProps } from './EmployeeType';
+import { AllEmpInformation, CreateEmployeeProps } from './EmployeeType';
 import { useGetDepartmentSetupQuery } from '@/services/setup/departmentSetupApi';
 import { useGetOrgSetupQuery } from '@/services/setup/OrganizationSetupApi';
 import { Departments } from '../setup/department/CreateDepartmentType';
@@ -13,14 +13,16 @@ import { useGetDesignationSetupQuery } from '@/services/setup/designationSetupAp
 import { Designation } from '../setup/designation/DesignationType';
 import { useGetPoliceStationApiDataQuery } from '@/services/setup/PoliceStationApi';
 import { PoliceStation } from '../setup/policeStation/policeStationType';
+import { useUpdateEmployeeInformationMutation } from '@/services/employeeInformationServiceApi';
 
 function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmployeeProps) { 
-  const [value, setValue] = useState<string>(initialValues.maritialStatus);
+  const [selectedValue, setSelectedValue] = useState<boolean>(initialValues?.maritialStatus);
   const [form] = useForm();
     const { data: departmentData } = useGetDepartmentSetupQuery();
     const { data: organizationData } = useGetOrgSetupQuery();
     const { data: designations } = useGetDesignationSetupQuery();
     const { data: policeStations } = useGetPoliceStationApiDataQuery();
+   const [updateEmployee] = useUpdateEmployeeInformationMutation();
 
     useEffect(() => {
       form.setFieldsValue({
@@ -50,9 +52,115 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
     },[form, initialValues])
 
 
-  const onFinish = () => {
+  const onFinish = async(value: AllEmpInformation) => {
+    try {
+      const getValue = {
+        id: value.id,
+        firstName: value.firstName,
+        middleName: value.middleName,
+        lastName: value.lastName,
+        fullName: value.fullName,
+        phone: value.phone,
+        mobileOne: value.mobileOne,
+        mobileTwo: value.mobileTwo,
+        emergencyMobile: value.emergencyMobile,
+        officeEmail: value.officeEmail,
+        personalEmail: value.personalEmail,
+        departmentId: value.departmentId,
+        designationId: value.designationId,
+        presentPSId: value.presentPSId,
+        presentCityCor:value.presentCityCor,
+        presentWord:value.presentWord,
+        presentVillRoad:value.presentVillRoad,
+        pertPSId: value.pertPSId,
+        perCityCor: value.perCityCor,
+        perWord: value.perWord,
+        perVillRoad: value.perVillRoad,
+        maritialStatus:selectedValue,
+        religionId: value.religionId,
+        bloodGroupId: value.bloodGroupId,
+        genderId: value.genderId,
 
+      }
+
+      const empPresentAddress = {
+        presentPostOfficeCode: value.presentPostOfficeCode,
+        presentPSId: value.presentPSId,
+        presentCityCor: value.presentCityCor,
+        presentWord: value.presentWord,
+        presentVillRoad: value.presentVillRoad,
+      };
+
+      const empPermanentAddress = {
+        pertPSId: value.pertPSId,
+        perCityCor: value.perCityCor,
+        perWord: value.perWord,
+        perWordNo: value.perWordNo,
+        perVillRoad: value.perVillRoad,
+        perBasHolding: value.perBasHolding,
+        perPostOffice: value.perPostOffice,
+        perPostOfficeCode: value.perPostOfficeCode,
+      };
+
+      const newEmp = {
+        id: getValue.id,
+        firstName: getValue.firstName,
+        middleName: getValue.middleName,
+        lastName: getValue.lastName,
+        fullName: getValue.fullName,
+        phone: getValue.phone,
+        mobileOne: getValue.mobileOne,
+        mobileTwo: getValue.mobileTwo,
+        emergencyMobile: getValue.emergencyMobile,
+        officeEmail: getValue.officeEmail,
+        personalEmail: getValue.personalEmail,
+        departmentId: getValue.departmentId,
+        designationId: getValue.designationId,
+        religionId: getValue.religionId,
+        bloodGroupId: getValue.bloodGroupId,
+        maritialStatus: Boolean(selectedValue),
+        genderId: getValue.genderId,
+        employeePresentAddress: [
+          {
+            presentPostOfficeCode: Number(
+              empPresentAddress.presentPostOfficeCode,
+            ),
+            presentPSId: Number(empPresentAddress.presentPSId),
+            presentWord: Number(empPresentAddress.presentWord),
+            presentVillRoad: Number(empPresentAddress.presentVillRoad),
+          },
+        ],
+        employeePermanentAddress: [
+          {
+            pertPSId: Number(empPermanentAddress.pertPSId),
+            perCityCor: Number(empPermanentAddress.perCityCor),
+            perWord: Number(empPermanentAddress.perWord),
+            perWordNo: Number(empPermanentAddress.perWordNo),
+            perVillRoad: Number(empPermanentAddress.perVillRoad),
+            perBasHolding: Number(empPermanentAddress.perBasHolding),
+            perPostOffice: Number(empPermanentAddress.perPostOffice),
+            perPostOfficeCode: Number(empPermanentAddress.perPostOfficeCode),
+          },
+        ],
+      };
+      console.log("newemp",newEmp);
+      await updateEmployee(newEmp);
+
+    } catch (error) {
+      console.log("error", error);
+    }
   }
+
+  const maritialStatusChangeHandler = (value: any) => {
+    const mv = value.target.value;
+    setSelectedValue(mv);
+  }
+
+  const [selectedGenderValue, setSelectedGenderValue] = useState<number>(initialValues?.genderId);
+
+  const genderChangeHandler = (value: any) => {
+    const genV = value.target.value;
+    setSelectedGenderValue(genV);  }
   
   return (
     <>
@@ -66,6 +174,16 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
           >
             <Row>
               <Col flex={3}>
+
+              <Form.Item
+                  label="id"
+                  name="id"
+                  rules={[
+                    { required: true, message: 'Please input your username!' },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
                 <Form.Item
                   label="firstName"
                   name="firstName"
@@ -164,11 +282,19 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                   </Select>
                 </Form.Item>
                 <Form.Item label="Marital Status">
-                <Radio.Group  name="maritialStatus" defaultValue={initialValues?.maritialStatus}>
+                <Radio.Group  name="maritialStatus" onChange={maritialStatusChangeHandler}  value={String(selectedValue)}>
                 <Radio value="true">Married</Radio>
                 <Radio value="false">Un Married</Radio>
               </Radio.Group>
                 </Form.Item>
+                <Form.Item label="Gender">
+                <Checkbox.Group name="genderId" onChange={genderChangeHandler}>
+                <Row>
+                  <Col span={8}><Checkbox value="1">Male</Checkbox></Col>
+                  <Col span={8}><Checkbox value="2">Female</Checkbox></Col>
+                </Row>
+              </Checkbox.Group>
+              </Form.Item>
               </Col>
             </Row>
           </Collapse>
