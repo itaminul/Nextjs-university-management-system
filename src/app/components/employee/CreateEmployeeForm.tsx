@@ -106,7 +106,7 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
       <div>
         <Form onFinish={onFinish} layout="vertical">
           <Collapse
-            title="Employee Information"
+            title={title}
             panelStyles={{}}
             iconOpen={<FiMinus />}
             iconClosed={<FiPlus />}

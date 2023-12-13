@@ -10,7 +10,7 @@ export const designationSetupApi = createApi({
     getDesignationSetup: builder.query<Designation[], void>({
       query: () => 'designationSetup',
       transformResponse: (response: any) => {
-        const formattedData = response.results?.map((item: any) => ({
+        const formattedData = response.results?.map((item: Designation) => ({
           id: item.id,
           designationName: item.designationName,
           designationDes: item.designationDes,
