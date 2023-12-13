@@ -4,6 +4,7 @@ export interface Designation {
   designationDes: string;
   orgId: number;
   serialNo: number;
+  activeStatus: boolean;
 }
 export interface DesignationProps {
   title: string;

@@ -14,14 +14,10 @@ import { Designation } from '../setup/designation/DesignationType';
 import { useGetPoliceStationApiDataQuery } from '@/services/setup/PoliceStationApi';
 import { PoliceStation } from '../setup/policeStation/policeStationType';
 import { useUpdateEmployeeInformationMutation } from '@/services/employeeInformationServiceApi';
-
-
 interface InputRow {
   id: number;
   value: string;
 }
-
-
 function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmployeeProps) { 
   const [selectedValue, setSelectedValue] = useState<boolean>(initialValues?.maritialStatus);
   const maritialStatusChangeHandler = (value: any) => {
@@ -33,7 +29,6 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
     const genV = e.target.value;
     setSelectedGenderValue(genV);  
   }
-  // console.log("gender", selectedGenderValue);
   const [form] = useForm();
     const { data: departmentData } = useGetDepartmentSetupQuery();
     const { data: organizationData } = useGetOrgSetupQuery();
@@ -67,8 +62,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
         perWord: initialValues?.perWord,
         perVillRoad: initialValues?.perVillRoad,
       })
-    },[form, initialValues])
-
+    },[form, initialValues]);
 
   const onFinish = async(value: AllEmpInformation) => {
     try {
@@ -163,7 +157,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
       };
  
       await updateEmployee(newEmp);
-      message.success('Success');
+      message.success('Update Successfully');
       setTimeout(() => {
         onCancel();
       }, 2000)
@@ -181,19 +175,19 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
     const newId = inputRows.length + 1;
     setInputRows([...inputRows, { id: newId, value: ''}]);
   }
+  
   return (
     <>
       <div>
         <Form form={form} onFinish={onFinish} layout="vertical">
           <Collapse
-            title="Employee Information"
+            title={title}
             panelStyles={{}}
             iconOpen={<FiMinus />}
             iconClosed={<FiPlus />}
           >
             <Row>
               <Col flex={3}>
-
               <Form.Item
                   label="id"
                   name="id"
@@ -292,7 +286,6 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                     ))}
                   </Select>
                 </Form.Item>
-
                 <Form.Item label="bloodGroupId" name="bloodGroupId">
                   <Select>
                     <Select value="default">Select and option</Select>
