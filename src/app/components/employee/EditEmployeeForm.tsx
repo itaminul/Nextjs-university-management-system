@@ -15,8 +15,25 @@ import { useGetPoliceStationApiDataQuery } from '@/services/setup/PoliceStationA
 import { PoliceStation } from '../setup/policeStation/policeStationType';
 import { useUpdateEmployeeInformationMutation } from '@/services/employeeInformationServiceApi';
 
+
+interface InputRow {
+  id: number;
+  value: string;
+}
+
+
 function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmployeeProps) { 
   const [selectedValue, setSelectedValue] = useState<boolean>(initialValues?.maritialStatus);
+  const maritialStatusChangeHandler = (value: any) => {
+    const mv = value.target.value;
+    setSelectedValue(mv);
+  }
+  const [selectedGenderValue, setSelectedGenderValue] = useState<number>(initialValues?.genderId);
+  const genderChangeHandler = (e: any) => {
+    const genV = e.target.value;
+    setSelectedGenderValue(genV);  
+  }
+  // console.log("gender", selectedGenderValue);
   const [form] = useForm();
     const { data: departmentData } = useGetDepartmentSetupQuery();
     const { data: organizationData } = useGetOrgSetupQuery();
@@ -38,6 +55,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
         personalEmail: initialValues?.personalEmail,
         departmentId: initialValues?.departmentId,
         designationId: initialValues?.designationId,
+        genderId: initialValues?.genderId,
         orgId: initialValues?.orgId,
         maritialStatus: initialValues?.maritialStatus,
         presentPSId: initialValues?.presentPSId,
@@ -119,7 +137,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
         religionId: getValue.religionId,
         bloodGroupId: getValue.bloodGroupId,
         maritialStatus: Boolean(selectedValue),
-        genderId: getValue.genderId,
+        genderId: Number(selectedGenderValue),
         employeePresentAddress: [
           {
             presentPostOfficeCode: Number(
@@ -143,25 +161,26 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
           },
         ],
       };
-      console.log("newemp",newEmp);
+ 
       await updateEmployee(newEmp);
+      message.success('Success');
+      setTimeout(() => {
+        onCancel();
+      }, 2000)
 
     } catch (error) {
       console.log("error", error);
     }
   }
 
-  const maritialStatusChangeHandler = (value: any) => {
-    const mv = value.target.value;
-    setSelectedValue(mv);
+
+  //add more row
+  const [inputRows, setInputRows] = useState<InputRow[]>([{id:1, value: ''}]);
+
+  const addInputRow = () => {
+    const newId = inputRows.length + 1;
+    setInputRows([...inputRows, { id: newId, value: ''}]);
   }
-
-  const [selectedGenderValue, setSelectedGenderValue] = useState<number>(initialValues?.genderId);
-
-  const genderChangeHandler = (value: any) => {
-    const genV = value.target.value;
-    setSelectedGenderValue(genV);  }
-  
   return (
     <>
       <div>
@@ -288,10 +307,10 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
               </Radio.Group>
                 </Form.Item>
                 <Form.Item label="Gender">
-                <Checkbox.Group name="genderId" onChange={genderChangeHandler}>
+                <Checkbox.Group>
                 <Row>
-                  <Col span={8}><Checkbox value="1">Male</Checkbox></Col>
-                  <Col span={8}><Checkbox value="2">Female</Checkbox></Col>
+                  <Col span={8}><Checkbox name="genderId"  onChange={genderChangeHandler} value="1">Male</Checkbox></Col>
+                  <Col span={8}><Checkbox name="genderId" onChange={genderChangeHandler} value="2">Female</Checkbox></Col>
                 </Row>
               </Checkbox.Group>
               </Form.Item>
@@ -382,7 +401,16 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
           >
             <Row>
               <Col flex={3}>
+
+                {/* {inputRows.map((row) => (
+                  <div key={row.id}>
+                    <Input value={row.value} />
+                  </div>
+                ))}
                 
+                <Space>
+                  <Button type="primary" onClick={addInputRow}>Add Row</Button>
+                </Space> */}
                 <Form.Item label="Degree" name="degreeId">
                   <Input />
                 </Form.Item>

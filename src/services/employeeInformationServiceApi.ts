@@ -26,6 +26,7 @@ export const employeeInformationApi = createApi({
           designationId: item.designationId,
           religionId: item.religionId,
           maritialStatus: item.maritialStatus,
+          genderId: item.genderId,
           orgId: item.orgId,
           activeStatus: item.activeStatus,
           presentPSId: item.employeePresentAddress[0].presentPSId,

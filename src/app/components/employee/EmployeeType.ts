@@ -59,6 +59,7 @@ export interface AllEmpInformation extends Employees, empPresentAddress, empPerm
   designationId: string,
   religionId: string,
   bloodGroupId: string,
+  genderId: number,
   maritialStatus: boolean,
   presentPostOfficeCode: string;
   empId: number; 
