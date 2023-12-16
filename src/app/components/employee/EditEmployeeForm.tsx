@@ -167,7 +167,6 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
     }
   }
 
-
   //add more row
   const [inputRows, setInputRows] = useState<InputRow[]>([{id:1, value: ''}]);
 
@@ -198,7 +197,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                   <Input />
                 </Form.Item>
                 <Form.Item
-                  label="firstName"
+                  label="First Name"
                   name="firstName"
                   rules={[
                     { required: true, message: 'Please input your username!' },
@@ -206,9 +205,8 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                 >
                   <Input />
                 </Form.Item>
-
                 <Form.Item
-                  label="middleName"
+                  label="Middle Name"
                   name="middleName"
                   rules={[
                     { required: true, message: 'Please input your password!' },
@@ -216,31 +214,30 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                 >
                   <Input />
                 </Form.Item>
-
-                <Form.Item label="lastName" name="lastName">
+                <Form.Item label="Last Name" name="lastName">
                   <Input />
                 </Form.Item>
-                <Form.Item label="fullName" name="fullName">
+                <Form.Item label="Full Name" name="fullName">
                   <Input />
                 </Form.Item>
-                <Form.Item label="phone" name="phone">
+                <Form.Item label="Phone" name="phone">
                   <Input />
                 </Form.Item>
-                <Form.Item label="mobileOne" name="mobileOne">
+                <Form.Item label="Mobile One" name="mobileOne">
                   <Input />
                 </Form.Item>
-                <Form.Item label="mobileTwo" name="mobileTwo">
+                <Form.Item label="Mobile Two" name="mobileTwo">
                   <Input />
                 </Form.Item>
-                <Form.Item label="emergencyMobile" name="emergencyMobile">
+                <Form.Item label="Emergency Number" name="emergencyMobile">
                   <Input />
                 </Form.Item>
               </Col>
               <Col style={{ marginLeft: '10px' }} flex={3}>
-                <Form.Item label="officeEmail" name="officeEmail">
+                <Form.Item label="Office Email" name="officeEmail">
                   <Input />
                 </Form.Item>
-                <Form.Item label="personalEmail" name="personalEmail">
+                <Form.Item label="Personal Email" name="personalEmail">
                   <Input />
                 </Form.Item>
                 <Form.Item
@@ -286,7 +283,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                     ))}
                   </Select>
                 </Form.Item>
-                <Form.Item label="bloodGroupId" name="bloodGroupId">
+                <Form.Item label="Blood Group" name="bloodGroupId">
                   <Select>
                     <Select value="default">Select and option</Select>
                     <Select.Option value={1}>A+</Select.Option>
@@ -319,7 +316,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
           >
             <Row>
               <Col flex={3}>
-                <Form.Item label="Present Police Station" name="presentPSId">
+                <Form.Item label="Police Station" name="presentPSId">
                   <Select defaultValue="presentPSId">
                   <Select value="default">Select and option</Select>
                     {policeStations?.map((option: PoliceStation) => (
@@ -327,21 +324,21 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                     ))}
                   </Select>
                 </Form.Item>
-                <Form.Item label="presentCityCor" name="presentCityCor">
+                <Form.Item label="City Corporation" name="presentCityCor">
                   <Input />
                 </Form.Item>
               </Col>
               <Col style={{ marginLeft: '10px' }} flex={3}>
-                <Form.Item label="presentWord" name="presentWord">
+                <Form.Item label="Word" name="presentWord">
                   <Input />
                 </Form.Item>
 
-                <Form.Item label="presentVillRoad" name="presentVillRoad">
+                <Form.Item label="Vill Road" name="presentVillRoad">
                   <Input />
                 </Form.Item>
 
                 <Form.Item
-                  label="presentPostOfficeCode"
+                  label="Post Office Code"
                   name="presentPostOfficeCode"
                 >
                   <Input />
@@ -357,7 +354,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
           >
             <Row>
               <Col flex={3}>
-                <Form.Item label="Police station" name="pertPSId">
+                <Form.Item label="Police Station" name="pertPSId">
                   <Select defaultValue="pertPSId">
                     <Select value="default">Select and option</Select>
                     {policeStations?.map((option: PoliceStation) => (
