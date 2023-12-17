@@ -444,7 +444,6 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
               </Col>
             </Row>
           </Collapse>
-
           <Form.Item>
             <Space>
               <div style={{ float: 'right' }}>
