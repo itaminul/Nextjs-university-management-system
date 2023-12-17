@@ -168,7 +168,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
   }
 
   //add more row
-  const [inputRows, setInputRows] = useState<InputRow[]>([{id:1, value: ''}]);
+  const [inputRows, setInputRows] = useState<InputRow[]>([{id:1, value: ''},{id:1, value: ''},{id:1, value: ''}, {id:1, value: ''}]);
 
   const addInputRow = () => {
     const newId = inputRows.length + 1;
@@ -391,16 +391,40 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
           >
             <Row>
               <Col flex={3}>
-
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Degree</th>
+                      <th>Board</th>
+                      <th>Result</th>
+                      <th>Passing Year</th>
+                      <th> <Button type="primary" onClick={addInputRow}>Add Row</Button> </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td> 
+                        <Input  />
+                      </td>
+                       <td> 
+                        <Input  />
+                      </td>
+                       <td> 
+                        <Input  />
+                      </td>
+                      <td> 
+                        <Input  />
+                      </td>
+                      <td>Delete</td>
+                    </tr>
+                      
+                  </tbody>
+                </table>
                 {/* {inputRows.map((row) => (
                   <div key={row.id}>
                     <Input value={row.value} />
                   </div>
-                ))}
-                
-                <Space>
-                  <Button type="primary" onClick={addInputRow}>Add Row</Button>
-                </Space> */}
+                ))} */}
                 <Form.Item label="Degree" name="degreeId">
                   <Input />
                 </Form.Item>

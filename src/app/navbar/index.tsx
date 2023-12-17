@@ -38,7 +38,8 @@ const Navbar = () => {
         <div className="top-bar">
           <Link href={'/layouts/dashboard'}>           
             <Button type="primary" onClick={showDashbordDrawer}>
-              <MenuUnfoldOutlined />
+            Menu
+              {/* <MenuUnfoldOutlined /> */}
             </Button>
           </Link>
           <Menu style={{ display: 'flex' }} className="right-menu">
