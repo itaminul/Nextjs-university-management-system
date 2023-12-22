@@ -101,6 +101,9 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
     } catch (error) {}
   };
 
+ // const [activeKey, setActiveKey] = useState<string | string[]>([]);
+
+
   return (
     <>
       <div>
@@ -108,8 +111,9 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
           <Collapse
             title={title}
             panelStyles={{}}
-            iconOpen={<FiMinus />}
-            iconClosed={<FiPlus />}
+            key="1"
+            //iconOpen={<FiMinus />}
+            //  iconClosed={<FiPlus />}
           >
             <Row>
               <Col flex={3}>
@@ -136,27 +140,24 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
                 <Form.Item label="lastName" name="lastName">
                   <Input />
                 </Form.Item>
-                <Form.Item label="fullName" name="fullName">
+                <Form.Item label="Full Name" name="fullName">
                   <Input />
                 </Form.Item>
                 <Form.Item label="phone" name="phone">
                   <Input />
                 </Form.Item>
-                <Form.Item label="mobileOne" name="mobileOne">
+                <Form.Item label="Mobile One" name="mobileOne">
                   <Input />
                 </Form.Item>
-                <Form.Item label="mobileTwo" name="mobileTwo">
-                  <Input />
-                </Form.Item>
-                <Form.Item label="emergencyMobile" name="emergencyMobile">
+                <Form.Item label="Mobile Two" name="mobileTwo">
                   <Input />
                 </Form.Item>
               </Col>
               <Col style={{ marginLeft: '10px' }} flex={3}>
-                <Form.Item label="officeEmail" name="officeEmail">
+                <Form.Item label="Office Email" name="officeEmail">
                   <Input />
                 </Form.Item>
-                <Form.Item label="personalEmail" name="personalEmail">
+                <Form.Item label="Persona lEmail" name="personalEmail">
                   <Input />
                 </Form.Item>
                 <Form.Item
@@ -196,12 +197,15 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
                   </Select>
                 </Form.Item>
 
-                <Form.Item label="bloodGroupId" name="bloodGroupId">
+                <Form.Item label="Blood Group" name="bloodGroupId">
                   <Select>
                     <Select value="default">Select and option</Select>
                     <Select.Option value={1}>A+</Select.Option>
                     <Select.Option value={2}>B+</Select.Option>
                   </Select>
+                </Form.Item>
+                <Form.Item label="Emergency Mobile" name="emergencyMobile">
+                  <Input />
                 </Form.Item>
               </Col>
             </Row>
@@ -210,12 +214,13 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
           <Collapse
             title="Present Address"
             panelStyles={{}}
-            iconOpen={<FiMinus />}
-            iconClosed={<FiPlus />}
+            key="1"
+            //  iconOpen={<FiMinus />}
+            //  iconClosed={<FiPlus />}
           >
             <Row>
               <Col flex={3}>
-                <Form.Item label="presentPSId" name="presentPSId">
+                <Form.Item label="Present Police Station" name="presentPSId">
                   <Select>
                     <Select.Option>Select an option</Select.Option>
                     {policeStation?.map((item: PoliceStation) => (
@@ -226,21 +231,21 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
                   </Select>
                 </Form.Item>
 
-                <Form.Item label="presentCityCor" name="presentCityCor">
+                <Form.Item label="Present City Corporation" name="presentCityCor">
                   <Input />
                 </Form.Item>
               </Col>
               <Col style={{ marginLeft: '10px' }} flex={3}>
-                <Form.Item label="presentWord" name="presentWord">
+                <Form.Item label="Present Word" name="presentWord">
                   <Input />
                 </Form.Item>
 
-                <Form.Item label="presentVillRoad" name="presentVillRoad">
+                <Form.Item label="Present Vill Road" name="presentVillRoad">
                   <Input />
                 </Form.Item>
 
                 <Form.Item
-                  label="presentPostOfficeCode"
+                  label="Present Post Office Code"
                   name="presentPostOfficeCode"
                 >
                   <Input />
@@ -251,8 +256,8 @@ function CreateEmployeeForm({ visible, title, onCancel }: CreateEmployeeProps) {
           <Collapse
             title="Permanent Address"
             panelStyles={{}}
-            iconOpen={<FiMinus />}
-            iconClosed={<FiPlus />}
+            //  iconOpen={<FiMinus />}
+            //  iconClosed={<FiPlus />}
           >
             <Row>
               <Col flex={3}>
