@@ -16,7 +16,11 @@ import { PoliceStation } from '../setup/policeStation/policeStationType';
 import { useUpdateEmployeeInformationMutation } from '@/services/employeeInformationServiceApi';
 interface InputRow {
   id: number;
-  value: string;
+  degree: number;
+  board: number;
+  result: string;
+  passingYear: number;
+
 }
 function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmployeeProps) { 
   const [selectedValue, setSelectedValue] = useState<boolean>(initialValues?.maritialStatus);
@@ -25,6 +29,10 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
     setSelectedValue(mv);
   }
   const [selectedGenderValue, setSelectedGenderValue] = useState<number>(initialValues?.genderId);
+
+    //add more row
+    const [inputRows, setInputRows] = useState<InputRow[]>([{id:1, degree: 1, board: 1, result: '', passingYear: 1}]);
+
   const genderChangeHandler = (e: any) => {
     const genV = e.target.value;
     setSelectedGenderValue(genV);  
@@ -94,6 +102,12 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
         genderId: value.genderId,
 
       }
+
+      const education = {
+        degreeId: inputRows
+      }
+
+      console.log("educatoin", education);
 
       const empPresentAddress = {
         presentPostOfficeCode: value.presentPostOfficeCode,
@@ -167,14 +181,26 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
     }
   }
 
-  //add more row
-  const [inputRows, setInputRows] = useState<InputRow[]>([{id:1, value: ''},{id:1, value: ''},{id:1, value: ''}, {id:1, value: ''}]);
+
 
   const addInputRow = () => {
     const newId = inputRows.length + 1;
-    setInputRows([...inputRows, { id: newId, value: ''}]);
+    setInputRows([...inputRows, { id: newId, degree: 1 , board: 1 , result: '', passingYear: 1}]);
   }
   
+
+
+  const removeInputField = (id: number) => {
+    const updatedFields = inputRows.filter((field) => field.id !== id);
+    setInputRows(updatedFields);
+  };
+
+  const handleInputChange = (degreeId: number) => {
+          const updatedFields = inputRows.map((field) => 
+          field.degree === degreeId ? { ...field, value: degreeId}: field
+          );
+          setInputRows(updatedFields);
+  }
   return (
     <>
       <div>
@@ -402,22 +428,38 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                     </tr>
                   </thead>
                   <tbody>
+                    {inputRows.map((field) => (                    
                     <tr>
                       <td> 
-                        <Input  />
+                      <Form.Item  name="degreeId">
+                        <Input 
+                        onChange={(e) => handleInputChange(e.target.value)}
+
+                        />
+                      </Form.Item>
                       </td>
                        <td> 
-                        <Input  />
+                       <Form.Item name="perWord">
+                        <Input />
+                      </Form.Item>
                       </td>
                        <td> 
-                        <Input  />
+                       <Form.Item name="result">
+                        <Input />
+                      </Form.Item>
                       </td>
                       <td> 
-                        <Input  />
+                        <Form.Item name="perPostOfficeCode">
+                          <Input />
+                        </Form.Item>
                       </td>
-                      <td>Delete</td>
+                      <td>
+                      <Button type="default" onClick={() => removeInputField(field.id)}>
+                      Remove
+                     </Button>
+                      </td>
                     </tr>
-                      
+                    ))}                      
                   </tbody>
                 </table>
                 {/* {inputRows.map((row) => (
@@ -425,22 +467,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                     <Input value={row.value} />
                   </div>
                 ))} */}
-                <Form.Item label="Degree" name="degreeId">
-                  <Input />
-                </Form.Item>
-              </Col>
-              <Col style={{ marginLeft: '10px' }} flex={3}>
-                <Form.Item label="Board" name="perWord">
-                  <Input />
-                </Form.Item>
-
-                <Form.Item label="Result" name="result">
-                  <Input />
-                </Form.Item>
-
-                <Form.Item label="Passing Year" name="perPostOfficeCode">
-                  <Input />
-                </Form.Item>
+               
               </Col>
             </Row>
           </Collapse>

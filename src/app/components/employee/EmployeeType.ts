@@ -42,7 +42,10 @@ export interface empPermanentAddress {
   presentVillRoad: number
 }
 
-export interface AllEmpInformation extends Employees, empPresentAddress, empPermanentAddress {
+export interface education {
+  degreeId: number
+}
+export interface AllEmpInformation extends Employees, empPresentAddress, empPermanentAddress, education {
   id: number,
   firstName: string,
   middleName: string,
@@ -76,6 +79,8 @@ export interface AllEmpInformation extends Employees, empPresentAddress, empPerm
   perBasHolding: number;
   perPostOffice: number;
   perPostOfficeCode: number;
+
+  education:number
 }
 
 
