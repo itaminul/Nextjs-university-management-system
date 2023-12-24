@@ -16,11 +16,13 @@ import { PoliceStation } from '../setup/policeStation/policeStationType';
 import { useUpdateEmployeeInformationMutation } from '@/services/employeeInformationServiceApi';
 interface InputRow {
   id: number;
-  degree: number;
-  board: number;
-  result: string;
-  passingYear: number;
+  degreeId: number;
 
+}
+
+interface Row {
+  id: number;
+  degreeId: number | undefined;
 }
 function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmployeeProps) { 
   const [selectedValue, setSelectedValue] = useState<boolean>(initialValues?.maritialStatus);
@@ -31,7 +33,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
   const [selectedGenderValue, setSelectedGenderValue] = useState<number>(initialValues?.genderId);
 
     //add more row
-    const [inputRows, setInputRows] = useState<InputRow[]>([{id:1, degree: 1, board: 1, result: '', passingYear: 1}]);
+    const [inputRows, setInputRows] = useState<InputRow[]>([{id:1, degreeId: undefined}]);
 
   const genderChangeHandler = (e: any) => {
     const genV = e.target.value;
@@ -181,26 +183,28 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
     }
   }
 
+  const [rows, setRows] = useState<Row[]>([{ id: 1, degreeId: 1 }]);
 
-
-  const addInputRow = () => {
-    const newId = inputRows.length + 1;
-    setInputRows([...inputRows, { id: newId, degree: 1 , board: 1 , result: '', passingYear: 1}]);
-  }
-  
-
-
-  const removeInputField = (id: number) => {
-    const updatedFields = inputRows.filter((field) => field.id !== id);
-    setInputRows(updatedFields);
+  const handleInputChange = (id: number, value: string) => {
+    const parsedValue = parseFloat(value);
+    const updatedRows = rows.map((row) =>
+      row.id === id ? { ...row, numberValue: isNaN(parsedValue) ? undefined : parsedValue } : row
+    );
+    setRows(updatedRows);
   };
 
-  const handleInputChange = (degreeId: number) => {
-          const updatedFields = inputRows.map((field) => 
-          field.degree === degreeId ? { ...field, value: degreeId}: field
-          );
-          setInputRows(updatedFields);
-  }
+  const addRow = () => {
+    const newId = rows.length + 1;
+    setRows([...rows, { id: newId, degreeId: undefined }]);
+  };
+
+  const handleSubmit = () => {
+    // Access values from the rows here
+    console.log('Input values:', rows.map((row) => row.degreeId));
+  };
+
+  console.log("rows", rows);
+ 
   return (
     <>
       <div>
@@ -424,23 +428,35 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                       <th>Board</th>
                       <th>Result</th>
                       <th>Passing Year</th>
-                      <th> <Button type="primary" onClick={addInputRow}>Add Row</Button> </th>
+                      <th> <Button type="primary" onClick={addRow}>Add Row</Button> </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {inputRows.map((field) => (                    
+                    {rows?.map((row) => (                    
                     <tr>
+
                       <td> 
                       <Form.Item  name="degreeId">
-                        <Input 
-                        onChange={(e) => handleInputChange(e.target.value)}
-
-                        />
+                      <div key={row.id} style={{ marginBottom: '8px' }}>
+                      <Input                      
+                        onChange={(e) => handleInputChange(row.id, e.target.value)}
+                        style={{ width: '60%' }}
+                        placeholder={`Enter value ${row.id}`}
+                      />
+                       </div>
                       </Form.Item>
                       </td>
+
+
                        <td> 
                        <Form.Item name="perWord">
-                        <Input />
+                       <Select
+                        style={{ width: '40%' }}
+                      >
+                        <Select.Option value="Option 1">Option 1</Select.Option>
+                        <Select.Option value="Option 2">Option 2</Select.Option>
+                        {/* Add more options as needed */}
+                      </Select>
                       </Form.Item>
                       </td>
                        <td> 
@@ -454,7 +470,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                         </Form.Item>
                       </td>
                       <td>
-                      <Button type="default" onClick={() => removeInputField(field.id)}>
+                      <Button type="default">
                       Remove
                      </Button>
                       </td>
