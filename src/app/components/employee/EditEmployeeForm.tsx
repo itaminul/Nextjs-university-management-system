@@ -217,7 +217,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
           >
             <Row>
               <Col flex={3}>
-              <Form.Item
+                <Form.Item
                   label="id"
                   name="id"
                   rules={[
@@ -275,9 +275,7 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                   label="Department Name"
                   rules={[{ required: true }]}
                 >
-                  <Select
-                  defaultValue="departmentId"
-                  >
+                  <Select defaultValue="departmentId">
                     <Select.Option value="departmentId" disabled>
                       Select an option
                     </Select.Option>
@@ -291,20 +289,15 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                 <Form.Item label="Designation" name="designationId">
                   <Select defaultValue="designationId">
                     <Select value="designationId">Select and option</Select>
-                      {designations?.map((option: Designation) => (
-                       <Select.Option
-                        key={option.id} 
-                        value={option.id}>
-                          {option.designationName}
-                        </Select.Option>
-                      ))}
-                            
+                    {designations?.map((option: Designation) => (
+                      <Select.Option key={option.id} value={option.id}>
+                        {option.designationName}
+                      </Select.Option>
+                    ))}
                   </Select>
                 </Form.Item>
                 <Form.Item label="Organization" name="orgId">
-                  <Select
-                  defaultValue="orgId"
-                  >
+                  <Select defaultValue="orgId">
                     <Select value="default">Select and option</Select>
                     {organizationData?.map((option: Organizations) => (
                       <Select.Option key={option.id} value={option.id}>
@@ -321,19 +314,39 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                   </Select>
                 </Form.Item>
                 <Form.Item label="Marital Status">
-                <Radio.Group  name="maritialStatus" onChange={maritialStatusChangeHandler}  value={String(selectedValue)}>
-                <Radio value="true">Married</Radio>
-                <Radio value="false">Un Married</Radio>
-              </Radio.Group>
+                  <Radio.Group
+                    name="maritialStatus"
+                    onChange={maritialStatusChangeHandler}
+                    value={String(selectedValue)}
+                  >
+                    <Radio value="true">Married</Radio>
+                    <Radio value="false">Un Married</Radio>
+                  </Radio.Group>
                 </Form.Item>
                 <Form.Item label="Gender">
-                <Checkbox.Group>
-                <Row>
-                  <Col span={8}><Checkbox name="genderId"  onChange={genderChangeHandler} value="1">Male</Checkbox></Col>
-                  <Col span={8}><Checkbox name="genderId" onChange={genderChangeHandler} value="2">Female</Checkbox></Col>
-                </Row>
-              </Checkbox.Group>
-              </Form.Item>
+                  <Checkbox.Group>
+                    <Row>
+                      <Col span={8}>
+                        <Checkbox
+                          name="genderId"
+                          onChange={genderChangeHandler}
+                          value="1"
+                        >
+                          Male
+                        </Checkbox>
+                      </Col>
+                      <Col span={8}>
+                        <Checkbox
+                          name="genderId"
+                          onChange={genderChangeHandler}
+                          value="2"
+                        >
+                          Female
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                  </Checkbox.Group>
+                </Form.Item>
               </Col>
             </Row>
           </Collapse>
@@ -348,9 +361,11 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
               <Col flex={3}>
                 <Form.Item label="Police Station" name="presentPSId">
                   <Select defaultValue="presentPSId">
-                  <Select value="default">Select and option</Select>
+                    <Select value="default">Select and option</Select>
                     {policeStations?.map((option: PoliceStation) => (
-                      <Select.Option key={option.id} value={option.id}>{option.thanaName}</Select.Option>
+                      <Select.Option key={option.id} value={option.id}>
+                        {option.thanaName}
+                      </Select.Option>
                     ))}
                   </Select>
                 </Form.Item>
@@ -388,7 +403,9 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                   <Select defaultValue="pertPSId">
                     <Select value="default">Select and option</Select>
                     {policeStations?.map((option: PoliceStation) => (
-                      <Select.Option key={option.id} value={option.id}>{option.thanaName}</Select.Option>
+                      <Select.Option key={option.id} value={option.id}>
+                        {option.thanaName}
+                      </Select.Option>
                     ))}
                   </Select>
                 </Form.Item>
@@ -428,54 +445,66 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                       <th>Board</th>
                       <th>Result</th>
                       <th>Passing Year</th>
-                      <th> <Button type="primary" onClick={addRow}>Add Row</Button> </th>
+                      <th>
+                        {' '}
+                        <Button type="primary" onClick={addRow}>
+                          Add Row
+                        </Button>{' '}
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {rows?.map((row) => (                    
-                    <tr>
+                    {rows?.map((row) => (
+                      <tr>
+                        <td>
+                          <Form.Item name="degreeId">
+                            <div key={row.id} style={{ marginBottom: '8px' }}>
+                              <Input
+                                onChange={(e) =>
+                                  handleInputChange(row.id, e.target.value)
+                                }
+                                style={{ width: 160 }}
+                                placeholder={`Enter value ${row.id}`}
+                              />
+                            </div>
+                          </Form.Item>
+                        </td>
 
-                      <td> 
-                      <Form.Item  name="degreeId">
-                      <div key={row.id} style={{ marginBottom: '8px' }}>
-                      <Input                      
-                        onChange={(e) => handleInputChange(row.id, e.target.value)}
-                        style={{ width: '60%' }}
-                        placeholder={`Enter value ${row.id}`}
-                      />
-                       </div>
-                      </Form.Item>
-                      </td>
-
-
-                       <td> 
-                       <Form.Item name="perWord">
-                       <Select
-                        style={{ width: '40%' }}
-                      >
-                        <Select.Option value="Option 1">Option 1</Select.Option>
-                        <Select.Option value="Option 2">Option 2</Select.Option>
-                        {/* Add more options as needed */}
-                      </Select>
-                      </Form.Item>
-                      </td>
-                       <td> 
-                       <Form.Item name="result">
-                        <Input />
-                      </Form.Item>
-                      </td>
-                      <td> 
-                        <Form.Item name="perPostOfficeCode">
-                          <Input />
-                        </Form.Item>
-                      </td>
-                      <td>
-                      <Button type="default">
-                      Remove
-                     </Button>
-                      </td>
-                    </tr>
-                    ))}                      
+                        <td>
+                          <Form.Item name="perWord">
+                            <Select
+                              defaultValue="departmentId"
+                              style={{ width: 160 }}
+                            >
+                              <Select.Option value="departmentId" disabled>
+                                Select an option
+                              </Select.Option>
+                              {departmentData?.map((option: Departments) => (
+                                <Select.Option
+                                  key={option.id}
+                                  value={option.id}
+                                >
+                                  {option.departmentName}
+                                </Select.Option>
+                              ))}
+                            </Select>
+                          </Form.Item>
+                        </td>
+                        <td>
+                          <Form.Item name="result">
+                            <Input />
+                          </Form.Item>
+                        </td>
+                        <td>
+                          <Form.Item name="perPostOfficeCode">
+                            <Input />
+                          </Form.Item>
+                        </td>
+                        <td>
+                          <Button type="default">Remove</Button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
                 {/* {inputRows.map((row) => (
@@ -483,7 +512,6 @@ function EditEmployeeForm({ title, visible, onCancel, initialValues }: CreateEmp
                     <Input value={row.value} />
                   </div>
                 ))} */}
-               
               </Col>
             </Row>
           </Collapse>
